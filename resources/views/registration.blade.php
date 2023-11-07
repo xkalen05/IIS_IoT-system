@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>IIS_IoT_system</title>
-</head>
-<body>
-    <h1>Registration</h1>
-</body>
+@extends('include.login-reg')
+@section('login-reg-body')
+    <form action="{{route('registration.post')}}" method="POST">
+        @csrf
+        <div class="box">
+            <h1>Registration</h1>
+            <div class="box-content">
+                <label class="login-label">new login:</label>
+                <input type="text" name="login" value="{{$login ?? ""}}" required aria-label="login-label"/>
+            </div>
+            <div class="box-content">
+                <label class="pwd-label">new password:</label>
+                <input type="password" name="password" value="{{$pwd ?? ""}}" required aria-label="pwd-label">
+            </div>
+            <div class="box-inner">
+                <button type="submit">registrate</button>
+            </div>
+        </div>
+    </form>
+@endsection

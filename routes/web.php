@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\Systems;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('unregistred', function (){
     return view('unregistred');
-});
-Route::get('registration', function (){
-    return view('registration');
-});
-Route::get('/', function () {
-    return view('login');
-});
+})->name('systems');
+
+/* Authentication */
+Route::get('/', [AuthManager::class, 'login'])->name('login');
+Route::post('/', [AuthManager::class, 'loginPost'])->name('login.post');
+Route::get('registration', [AuthManager::class, 'registration'])->name('registration');
+Route::post('registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
+Route::get('logout', [AuthManager::class, 'logout'])->name('logout');
+
+
+Route::get('systems', [Systems::class, 'systems'])->name('systems');
