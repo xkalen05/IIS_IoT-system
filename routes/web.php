@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('unregistred', function (){
+    return view('unregistred');
+});
+Route::get('registration', function (){
+    return view('registration');
+});
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
