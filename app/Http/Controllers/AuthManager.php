@@ -7,9 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthManager extends Controller
 {
+    public function username(){
+        return 'login';
+    }
+
     function login(){
         return view('login');
     }
@@ -20,13 +25,14 @@ class AuthManager extends Controller
 
     function loginPost(Request $request){
          $request->validate([
-            'login' => 'required',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        $credentials = $request->only('login','password');
+        $credentials = $request->only('email','password');
         if(Auth::attempt($credentials)){
-            return redirect()->intended(route('systems'));
+            $request->session()->regenerate();
+            return redirect()->intended('systems');
         }
         error_log("here");
         return redirect(route('login'))->with("error", "Login details are not valid");
@@ -34,10 +40,11 @@ class AuthManager extends Controller
 
     function registrationPost(Request $request){
         $request->validate([
-            'login' => 'required|unique:user',
+            'email' => 'required|unique:user',
             'password' => 'required'
         ]);
 
+        $data['email'] = $request->email;
         $data['login'] = $request->login;
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);

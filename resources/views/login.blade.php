@@ -18,8 +18,8 @@
         <div class="box">
             <h1>IIS IoT system</h1>
             <div class="box-content">
-                <label class="login-label">login:</label>
-                <input type="text" name="login" value="{{$login ?? ""}}" required aria-label="login-label"/>
+                <label class="email-label">email:</label>
+                <input type="text" name="email" value="{{$email ?? ""}}" required aria-label="email-label"/>
             </div>
             <div class="box-content">
                 <label class="pwd-label">password:</label>

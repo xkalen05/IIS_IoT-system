@@ -9,7 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use \Illuminate\Auth\Authenticatable;
+    use HasFactory, HasApiTokens, Notifiable;
     //@var string
     protected $table = 'user';
 
@@ -17,14 +17,14 @@ class User extends Authenticatable
 
     //protected $password = 'password';
 
-    protected $fillable = ['login','password'];
+    protected $fillable = ['login','password','email'];
     protected $hidden = [
         'password',
+        'remember_token'
     ];
 
     protected $casts = [
+        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    use HasFactory, HasApiTokens, Notifiable;
 }
