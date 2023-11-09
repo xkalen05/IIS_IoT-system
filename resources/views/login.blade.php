@@ -4,7 +4,7 @@
         @if($errors->any())
             <div class="error">
                 @foreach($errors->all() as $error)
-                    <div class="alert alert-danger">{{$error}}</div>
+                    <div class="alert alert-danger">{{$error}}</div> <!-- TODO: error output -->
                 @endforeach
             </div>
         @endif
@@ -30,6 +30,6 @@
             </div>
         </div>
     </form>
-    <a href="registration">Registration</a>
-    <a href="unregistred" class="cont-without-reg">Continue without registration</a>
+    <a href="/registration">Registration</a>
+    <a href="/unregistred" class="cont-without-reg">Continue without registration</a>
 @endsection
