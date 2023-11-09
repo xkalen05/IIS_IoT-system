@@ -11,10 +11,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthManager extends Controller
 {
-    public function username(){
-        return 'login';
-    }
-
     function login(){
         return view('login');
     }
