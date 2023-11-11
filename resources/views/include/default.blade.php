@@ -65,7 +65,7 @@
             width: fit-content;
         }
 
-        .error-box .success-box{
+        .error-box, .success-box{
             margin-left: auto;
             margin-right: auto;
             align-content: center;
