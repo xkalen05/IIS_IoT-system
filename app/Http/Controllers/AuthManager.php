@@ -32,7 +32,6 @@ class AuthManager extends Controller
             $request->session()->regenerate();
             return redirect()->intended('systems');
         }
-        error_log("here");
         return redirect(route('login'))->with("error", "Login details are not valid");
     }
 
@@ -65,6 +64,6 @@ class AuthManager extends Controller
     function logout(){
         Session::flush();
         Auth::logout();
-        return redirect(route('login'));
+        return redirect(route('login'))->with("success","Successfully logged out");
     }
 }

@@ -65,16 +65,24 @@
             width: fit-content;
         }
 
-        .error-box{
+        .error-box .success-box{
             margin-left: auto;
             margin-right: auto;
             align-content: center;
             width: fit-content;
             padding: 5px;
-            background-color: #ff4d4d;
             margin-top: 5px;
             border-radius: 5px;
+        }
+
+        .error-box{
+            background-color: #ff4d4d;
             border: solid 3px red;
+        }
+
+        .success-box{
+            background-color: greenyellow;
+            border: solid 3px green;
         }
 
     </style>
@@ -90,15 +98,7 @@
         @endif
         <a class="logout-button" href="/logout">Logout</a>
     </div>
-    @if(session()->has('error'))
-        <div class="error-box">
-            <a>{{session('error')}}</a>
-        </div>
-    @endif
-    @if(session()->has('success'))
-        <div class="success-box">
-            <a>{{session('success')}}</a>
-        </div>
-    @endif
+    <x-error-icon></x-error-icon>
+    <x-success-icon></x-success-icon>
 @yield('default-site-body')
 </body>

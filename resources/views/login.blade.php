@@ -1,18 +1,5 @@
 @extends('include.login-reg')
 @section('login-reg-body')
-    <div>
-        @if($errors->any())
-            <div class="error">
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger">{{$error}}</div> <!-- TODO: error output -->
-                @endforeach
-            </div>
-        @endif
-
-        @if(session()->has('error'))
-                <div class="alert alert-danger">{{session('error')}}</div>
-        @endif
-    </div>
     <form action="{{route('login.post')}}" method="POST">
         @csrf
         <div class="box">
@@ -30,6 +17,6 @@
             </div>
         </div>
     </form>
-    <a href="/registration">Registration</a>
+    <a href="/registration" class="cont-without-reg">Registration</a>
     <a href="/unregistred" class="cont-without-reg">Continue without registration</a>
 @endsection
