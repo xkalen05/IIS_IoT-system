@@ -2,7 +2,7 @@
 
 <tr>
     @if($header === 1)
-        <th>LOGIN</th>
+        <th>{{$login}}</th>
         @if($editable === 1)
             <th><a href="https://google.com">EDIT</a></th>
         @else

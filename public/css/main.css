@@ -1,0 +1,146 @@
+/* Predefined site style */
+body{
+    margin: 0;
+    min-width: 300px;
+}
+
+:root{
+    --menu-color: #44BCFF;
+    --basic-text-color: #000000;
+    --basic-text-hover-color: #FFFFFF;
+    --table-color: #a3b4d2;
+    --error-background-color: #ff5858;
+    --error-border-color: red;
+    --success-background-color: greenyellow;
+    --success-border-color: green;
+}
+
+/***            MENU              ***/
+.menu{
+    padding: 5px;
+    background-color: var(--menu-color);
+}
+
+.menu a{
+    display: inline;
+    text-decoration: none;
+    padding: 5px;
+    color: var(--basic-text-color);
+}
+
+.menu a:hover{
+    color: var(--basic-text-hover-color);
+}
+
+.logout-button{
+    float: right;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-top: -5px;
+}
+/************************************/
+
+/***      TABLE WITH CONTENT      ***/
+.info-table{
+    min-width: 500px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    border-collapse: collapse;
+    border: none;
+}
+
+.info-table tr{
+    border-top: 5px solid var(--basic-text-hover-color);
+}
+
+.info-table tr th{
+    padding: 5px;
+}
+
+.info-table tr{
+    padding: 2px 0 2px 5px;
+}
+
+.info-table tr td, .info-table tr th{
+    background-color: var(--table-color);
+    padding-left: 5px;
+}
+
+.info-table tr th:nth-child(odd){
+    text-align: left;
+}
+
+.info-table tr td:nth-child(even){
+    text-align: center;
+}
+
+.info-table tr td a{
+    text-decoration: none;
+    color: var(--basic-text-color);
+}
+
+.info-table tr td a:hover{
+    color: var(--basic-text-hover-color);
+}
+
+/************************************/
+
+/***    EDIT USER        ***/
+.edit-user-div{
+    margin: auto;
+    width: fit-content;
+}
+/***************************/
+
+/*** ERROR AND SUCCESS BOXES ***/
+.error-box, .success-box{
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    width: fit-content;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.error-box{
+    background-color: var(--error-background-color);
+    border: solid 3px var(--error-border-color);
+}
+
+.success-box{
+    background-color: var(--success-background-color);
+    border: solid 3px var(--success-border-color);
+}
+/**************************************/
+
+/***           LOGIN FORM           ***/
+.login-box{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 300px;
+    text-align: left;
+}
+.login-box .box-content{
+    display: flex;
+    flex-direction: column;
+}
+.login-box .reg-and-submit{
+    padding-top: 5px;
+    overflow: hidden;
+}
+.login-box .reg-and-submit .go-to-registration{
+    float: left;
+}
+.login-box .reg-and-submit .login-submit-button{
+    float: right;
+}
+.cont-without-reg{
+    display: block;
+    text-align: center;
+    padding-top: 10px;
+}
+/***************************************/
