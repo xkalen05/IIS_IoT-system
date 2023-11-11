@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Traits\CheckUserCredentials;
 
 class AuthManager extends Controller
 {
+    use CheckUserCredentials;
     function login(){
         return view('login');
     }
@@ -40,6 +42,16 @@ class AuthManager extends Controller
             'password' => 'required'
         ]);
 
+        // Check email validity
+        if(!$this->checkEmailForm($request->email)){
+            return redirect(route('registration'))->with("error","Invalid email form");
+        }
+
+        //Check password validity
+        if(!$this->checkPasswordForm($request->password)){
+            return redirect(route('registration'))->with("error","Invalid password");
+        }
+
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);
@@ -47,7 +59,7 @@ class AuthManager extends Controller
         if(!$user){
             return redirect(route('registration'))->with("error","registration failed");
         }
-        return redirect(route('login'));
+        return redirect(route('login'))->with("success","User \"" . $data['email'] . "\" successfully registrated");
     }
 
     function logout(){

@@ -36,5 +36,6 @@
     <title>IIS_IoT_system</title>
 </head>
 <body>
+<x-error-icon></x-error-icon>
 @yield('login-reg-body')
 </body>

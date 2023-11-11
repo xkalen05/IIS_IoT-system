@@ -64,6 +64,19 @@
             margin: auto;
             width: fit-content;
         }
+
+        .error-box{
+            margin-left: auto;
+            margin-right: auto;
+            align-content: center;
+            width: fit-content;
+            padding: 5px;
+            background-color: #ff4d4d;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: solid 3px red;
+        }
+
     </style>
 
     <title>IIS_IoT_system</title>
@@ -77,5 +90,15 @@
         @endif
         <a class="logout-button" href="/logout">Logout</a>
     </div>
+    @if(session()->has('error'))
+        <div class="error-box">
+            <a>{{session('error')}}</a>
+        </div>
+    @endif
+    @if(session()->has('success'))
+        <div class="success-box">
+            <a>{{session('success')}}</a>
+        </div>
+    @endif
 @yield('default-site-body')
 </body>
