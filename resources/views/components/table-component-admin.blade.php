@@ -9,9 +9,9 @@
             <th>-</th>
         @endif
     @else
-        <td>{{$login['login']}}</td>
+        <td>{{$login['email']}}</td>
         @if($editable === 1)
-            <td><a href="{{url('admin/'.$login['login'])}}">EDIT</a></td>
+            <td><a href="{{url('admin/'.$login['email'])}}">EDIT</a></td>
         @else
             <td>-</td>
         @endif
