@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Traits\CheckUserCredentials;
 
 class AuthManager extends Controller
