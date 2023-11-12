@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="{{URL::asset('css/main.css')}}" rel="stylesheet" type="text/css">
 
     <title>IIS_IoT_system</title>
 </head>
