@@ -5,10 +5,6 @@
         <div class="box">
             <h1>Registration</h1>
             <div class="box-content">
-                <label class="login-label">new login:</label>
-                <input type="text" name="login" value="{{$login ?? ""}}" required aria-label="login-label"/>
-            </div>
-            <div class="box-content">
                 <label class="email-label">your email:</label>
                 <input type="text" name="email" value="{{$email ?? ""}}" required aria-label="email-label"/>
             </div>

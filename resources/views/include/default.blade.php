@@ -4,67 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        /* Predefined site style */
-        body{
-            margin: 0px;
-        }
-
-        .menu{
-            padding: 5px;
-            background-color: #44BCFF;
-        }
-
-        .menu a{
-            display: inline;
-            text-decoration: none;
-            padding: 5px;
-        }
-
-        .logout-button{
-            float: right;
-            padding: 5px;
-        }
-
-        .info-table{
-            min-width: 500px;
-            width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            border-collapse: collapse;
-            border: none;
-        }
-
-        .info-table td{
-            border-top: 2px solid white;
-        }
-
-        th{
-            padding: 5px;
-        }
-
-        td{
-            padding: 2px 0 2px 5px;
-        }
-
-        tr{
-            background-color: #718096;
-        }
-
-        th:nth-child(odd){
-            text-align: left;
-        }
-
-        td:nth-child(even){
-            text-align: center;
-        }
-
-        .edit-user-div{
-            margin: auto;
-            width: fit-content;
-        }
-    </style>
+    <link href="{{URL::asset('css/main.css')}}" rel="stylesheet" type="text/css">
 
     <title>IIS_IoT_system</title>
 </head>
@@ -77,5 +17,7 @@
         @endif
         <a class="logout-button" href="/logout">Logout</a>
     </div>
+    <x-error-box></x-error-box>
+    <x-success-box></x-success-box>
 @yield('default-site-body')
 </body>

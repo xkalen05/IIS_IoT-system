@@ -2,12 +2,11 @@
 @section('default-site-body')
     <div class="edit-user-div">
         <h1>Edit User</h1>
+        <h3>email:{{$user_info['email']}}</h3>
         <form method="POST" action="{{route('edit-user.post')}}">
             @csrf
-            <input type="hidden" name="login" id="login" value="{{$user_info['login']}}">
-            <label for="email">email:</label><br>
-            <input type="email" id="email" name="email" value="{{isset($user_info['email'])?$user_info['email']:''}}"><br>
-            <label for="password">password:</label><br>
+            <input type="hidden" id="email" name="email" value="{{$user_info['email']}}">
+            <label for="password">new password:</label><br>
             <input type="text" id="password" name="password" value=""><br>
             <label for="admin">type of user:</label><br>
             <select name="admin" id="admin">
