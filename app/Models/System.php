@@ -19,4 +19,9 @@ class System extends Model
         'description',
         'kpi'
     ];
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'system_users', 'system_id', 'user_id');
+    }
 }
