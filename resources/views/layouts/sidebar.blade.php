@@ -20,7 +20,7 @@
         <a class="nav-link active" aria-current="page" href="{{route('user.dashboard')}}">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="{{route('user.index')}}">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('user.systems')}}">Systems</a>

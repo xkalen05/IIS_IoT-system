@@ -57,6 +57,10 @@ Route::group(['middleware' => 'adminUser'], function (){
 Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/dashboard', [DashboardController::class, 'indexUser'])->name('user.dashboard');
 
+    Route::get('/user/profile', [UserController::class, 'indexProfile'])->name('user.index');
+    Route::post('/user/profile/edit', [UserController::class, 'editUserByUser'])->name('user.profile.edit');
+    Route::post('/user/profile/editPassword', [UserController::class, 'editPasswordByUser'])->name('user.password.edit');
+
     Route::get('/user/systems', [SystemControllerUser::class, 'index'])->name('user.systems');
     Route::post('/user/systems/edit', [SystemControllerUser::class, 'edit'])->name('user.system.edit');
     Route::post('/user/systems/share', [SystemControllerUser::class, 'share'])->name('user.system.share');
