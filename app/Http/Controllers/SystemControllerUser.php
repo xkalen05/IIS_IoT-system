@@ -12,20 +12,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class SystemController extends Controller
+class SystemControllerUser extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $user = Auth::user();   // TODO prasarna
+        $user = Auth::user();
         $users = User::all();
-        // Retrieve the systems that belong to the user
-        $systems = $user->systems()->paginate(10);
 
-        return view('admin.systems.index')->with(['systems' => $systems, 'users' => $users]);
+        // If the user is not an admin, retrieve the systems that belong to the user
+        $userSystems = $user->systems()->paginate(10);
+        // Retrieve the systems that do not belong to the user
+        $otherSystems = System::whereDoesntHave('users', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->paginate(10);
 
+        return view('basic_user.systems.index')->with(['systems' => $userSystems, 'otherSystems' => $otherSystems, 'users' => $users]);
     }
 
     /**
@@ -43,7 +47,7 @@ class SystemController extends Controller
 
         $system->users()->attach($user_id);
 
-        return redirect(route('admin.systems'));
+        return redirect(route('user.systems'));
     }
 
     /**
@@ -58,7 +62,7 @@ class SystemController extends Controller
         $system->users()->attach($request->input('user_id'));
 
 
-        return redirect(route('admin.systems'));
+        return redirect(route('user.systems'));
 
     }
 
@@ -86,7 +90,7 @@ class SystemController extends Controller
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
 
-        return redirect(route('admin.systems'));
+        return redirect(route('user.systems'));
     }
 
     /**
@@ -103,6 +107,6 @@ class SystemController extends Controller
     public function destroy(string $id)
     {
         DB::table('systems')->where('id', '=', $id)->delete();
-        return redirect(route('admin.systems'));
+        return redirect(route('user.systems'));
     }
 }
