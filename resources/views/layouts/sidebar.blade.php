@@ -10,7 +10,7 @@
         <a class="nav-link" href="{{route('admin.systems')}}">Systems</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('admin.devices')}}">Devices</a>
+        <a class="nav-link" href="#">Devices</a>
       </li>
     </ul>
 @endif
@@ -20,13 +20,13 @@
         <a class="nav-link active" aria-current="page" href="{{route('user.dashboard')}}">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="{{route('admin.users')}}">Users</a>
+        <a class="nav-link" href="#">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="{{route('admin.systems')}}">Systems</a>
+        <a class="nav-link" href="{{route('user.systems')}}">Systems</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="{{route('admin.devices')}}">Devices</a>
+        <a class="nav-link" href="#">Devices</a>
       </li>
     </ul>
 

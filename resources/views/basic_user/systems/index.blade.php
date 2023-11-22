@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.systems.create')
+    @include('basic_user.systems.create')
 
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                         @forelse($systems as $system)
-                            @include('admin.systems.edit', ['system' => $system])
+                            @include('basic_user.systems.edit', ['system' => $system])
                             <tr>
                                 <td>{{ $system->id }}</td>
                                 <td>{{ $system->name }}</td>
@@ -46,9 +46,9 @@
                                     >
                                         Edit
                                     </button>
-                                    <a href="{{route('admin.system.delete', $system->id)}}"
+                                    <a href="{{route('user.system.delete', $system->id)}}"
                                        class="btn btn-danger">Delete</a>
-                                    @include('admin.systems.share', ['system' => $system])
+                                    @include('basic_user.systems.share', ['system' => $system])
                                     <button
                                         type="button"
                                         class="btn btn-warning"
@@ -64,14 +64,23 @@
                                 <td>No systems found!</td>
                             </tr>
                         @endforelse
-{{--                        <!-- Display systems that do not belong to the user -->--}}
-{{--                        @foreach($otherSystems as $system)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $system->id }}</td>--}}
-{{--                                <td>{{ $system->name }}</td>--}}
-{{--                                <td>{{ $system->description }}</td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
+                        <!-- Display systems that do not belong to the user -->
+                        @foreach($otherSystems as $system)
+                            <tr>
+                                <td>{{ $system->id }}</td>
+                                <td>{{ $system->name }}</td>
+                                <td>{{ $system->description }}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-warning"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#"
+                                    >
+                                        Share Request
+                                    </button>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

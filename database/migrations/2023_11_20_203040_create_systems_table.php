@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->text('system_admin_id');
             $table->string('kpi')->nullable();
             $table->timestamps();
         });
