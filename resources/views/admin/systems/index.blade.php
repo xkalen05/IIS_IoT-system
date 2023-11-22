@@ -48,6 +48,15 @@
                                     </button>
                                     <a href="{{route('admin.system.delete', $system->id)}}"
                                        class="btn btn-danger">Delete</a>
+                                    @include('admin.systems.share', ['system' => $system])
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#share_system_{{$system->id}}_modal"
+                                    >
+                                        Share
+                                    </button>
                                 </td>
                             </tr>
                         @empty

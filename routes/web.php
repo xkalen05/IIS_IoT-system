@@ -43,6 +43,7 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::get('/admin/systems', [SystemController::class, 'index'])->name('admin.systems');
     Route::get('/admin/systems/show/{id}', [SystemController::class, 'show'])->name('admin.systems.show');
     Route::post('/admin/systems/edit', [SystemController::class, 'edit'])->name('admin.system.edit');
+    Route::post('/admin/systems/share', [SystemController::class, 'share'])->name('admin.system.share');
     Route::post('/admin/systems/create', [SystemController::class, 'create'])->name('admin.system.create');
     Route::get('/admin/systems/delete/{id}', [SystemController::class, 'destroy'])->name('admin.system.delete');
 

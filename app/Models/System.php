@@ -17,6 +17,7 @@ class System extends Model
     protected $fillable = [
         'name',
         'description',
+        'system_admin_id',
         'kpi'
     ];
 
