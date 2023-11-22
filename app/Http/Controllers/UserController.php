@@ -68,7 +68,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function editUserByAdmin(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
 //        dd($request);
         DB::table('users')->where('id', '=', $request->input('user_id'))->update([
@@ -95,7 +95,7 @@ class UserController extends Controller
 
     }
 
-    public function editPassword(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function editPasswordByAdmin(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         DB::table('users')->where('id', '=', $request->input('user_id'))->update([
             'password' => Hash::make($request->input('password'))

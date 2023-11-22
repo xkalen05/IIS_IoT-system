@@ -38,9 +38,9 @@ Route::group(['middleware' => 'adminUser'], function (){
     // Routes pro users
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
-    Route::post('/admin/user/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::post('/admin/user/edit', [UserController::class, 'editUserByAdmin'])->name('admin.user.edit');
     Route::get('/admin/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
-    Route::post('/admin/user/editPassword', [UserController::class, 'editPassword'])->name('admin.user.password.edit');
+    Route::post('/admin/user/editPassword', [UserController::class, 'editPasswordByAdmin'])->name('admin.user.password.edit');
 
     Route::get('/admin/systems', [SystemControllerAdmin::class, 'index'])->name('admin.systems');
     Route::post('/admin/systems/edit', [SystemControllerAdmin::class, 'edit'])->name('admin.system.edit');
