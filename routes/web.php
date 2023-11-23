@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\SystemControllerAdmin;
 use App\Http\Controllers\SystemControllerUser;
 use Illuminate\Support\Facades\Auth;
@@ -48,10 +49,15 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::post('/admin/systems/create', [SystemControllerAdmin::class, 'create'])->name('admin.system.create');
     Route::get('/admin/systems/delete/{id}', [SystemControllerAdmin::class, 'destroy'])->name('admin.system.delete');
 
-//    Route::get('/admin/devices', [DeviceController::class, 'index'])->name('admin.devices');
-//    Route::get('/admin/devices/show/{id}', [DeviceController::class, 'show'])->name('admin.device.show');
-//    Route::get('/admin/devices/edit/{id}', [DeviceController::class, 'edit'])->name('admin.device.edit');
-//    Route::get('/admin/devices/delete/{id}', [DeviceController::class, 'destroy'])->name('admin.device.delete');
+    Route::get('/admin/devices', [DeviceController::class, 'index'])->name('admin.devices');
+    Route::post('/admin/devices/create', [DeviceController::class, 'create'])->name('admin.device.create');
+    Route::get('/admin/devices/show/{encrypted_id}', [DeviceController::class, 'show'])->name('admin.device.show');
+    Route::post('/admin/devices/edit/', [DeviceController::class, 'edit'])->name('admin.device.edit');
+    Route::get('/admin/devices/delete/{id}', [DeviceController::class, 'destroy'])->name('admin.device.delete');
+
+    Route::post('/admin/parameters/create/', [ParameterController::class, 'create'])->name('admin.parameters.create');
+    Route::post('/admin/parameters/edit/', [ParameterController::class, 'edit'])->name('admin.parameters.edit');
+    Route::get('/admin/parameters/delete/{id}', [ParameterController::class, 'destroy'])->name('admin.parameters.delete');
 });
 
 Route::group(['middleware' => 'basicUser'], function (){
