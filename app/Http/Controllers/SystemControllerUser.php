@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\System;
+use App\Models\SystemSharingRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -64,6 +65,24 @@ class SystemControllerUser extends Controller
 
         return redirect(route('user.systems'));
 
+    }
+
+    public function shareRequest(string $systemID)
+    {
+        $userId = auth()->id();
+
+        // Fetch the system admin ID based on the system ID
+        $system = System::find($systemID);
+        $systemAdminId = $system->system_admin_id;
+
+        // Create a new sharing request record
+        SystemSharingRequest::create([
+            'system_id' => $systemID,
+            'request_user_id' => $userId,
+            'system_owner_id' => $systemAdminId
+        ]);
+
+        return redirect(route('user.systems'));
     }
 
 

@@ -62,6 +62,7 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/systems', [SystemControllerUser::class, 'index'])->name('user.systems');
     Route::post('/user/systems/edit', [SystemControllerUser::class, 'edit'])->name('user.system.edit');
     Route::post('/user/systems/share', [SystemControllerUser::class, 'share'])->name('user.system.share');
+    Route::get('/user/systems/shareRequest/{id}', [SystemControllerUser::class, 'shareRequest'])->name('user.system.share.request');
     Route::post('/user/systems/create', [SystemControllerUser::class, 'create'])->name('user.system.create');
     Route::get('/user/systems/delete/{id}', [SystemControllerUser::class, 'destroy'])->name('user.system.delete');
 });

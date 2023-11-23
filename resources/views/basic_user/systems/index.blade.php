@@ -71,14 +71,12 @@
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>
-                                    <button
-                                        type="button"
-                                        class="btn btn-outline-warning"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#"
-                                    >
-                                        Share Request
-                                    </button>
+                                    @if(!\App\Models\SystemSharingRequest::hasPendingRequest($system->id, auth()->id()))
+                                        <a href="{{ route('user.system.share.request', $system->id) }}"
+                                           class="btn btn-outline-warning">Share Request</a>
+                                    @else
+                                        <button class="btn btn-outline-warning" disabled>Pending Request</button>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
