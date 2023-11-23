@@ -38,9 +38,9 @@ Route::group(['middleware' => 'adminUser'], function (){
     // Routes pro users
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
-    Route::post('/admin/user/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::post('/admin/user/edit', [UserController::class, 'editUserByAdmin'])->name('admin.user.edit');
     Route::get('/admin/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
-    Route::post('/admin/user/editPassword', [UserController::class, 'editPassword'])->name('admin.user.password.edit');
+    Route::post('/admin/user/editPassword', [UserController::class, 'editPasswordByAdmin'])->name('admin.user.password.edit');
 
     Route::get('/admin/systems', [SystemControllerAdmin::class, 'index'])->name('admin.systems');
     Route::post('/admin/systems/edit', [SystemControllerAdmin::class, 'edit'])->name('admin.system.edit');
@@ -57,9 +57,18 @@ Route::group(['middleware' => 'adminUser'], function (){
 Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/dashboard', [DashboardController::class, 'indexUser'])->name('user.dashboard');
 
+
+
     Route::get('/user/systems', [SystemControllerUser::class, 'index'])->name('user.systems');
     Route::post('/user/systems/edit', [SystemControllerUser::class, 'edit'])->name('user.system.edit');
     Route::post('/user/systems/share', [SystemControllerUser::class, 'share'])->name('user.system.share');
     Route::post('/user/systems/create', [SystemControllerUser::class, 'create'])->name('user.system.create');
     Route::get('/user/systems/delete/{id}', [SystemControllerUser::class, 'destroy'])->name('user.system.delete');
+});
+
+Route::group(['middleware' => 'sharedGroup'], function () {
+    Route::get('/profile', [UserController::class, 'indexProfile'])->name('profile.index');
+    Route::post('/profile/edit', [UserController::class, 'editUserByUser'])->name('profile.edit');
+    Route::post('/profile/editPassword', [UserController::class, 'editPasswordByUser'])->name('password.edit');
+
 });

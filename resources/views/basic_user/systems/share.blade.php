@@ -17,7 +17,11 @@
                         <div class="checkbox-dropdown">
                             <select multiple class="form-select" id="user_id" name="user_id">
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @if(!$user->systems->contains($system->id) && $user->role !== 'admin')
+                                        <option value="{{ $user->id }}">
+                                            {{ $user->name }}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
