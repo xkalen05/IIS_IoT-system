@@ -21,7 +21,8 @@ class UserController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $users = DB::table('users')->paginate(10);
+        $currentUser = Auth::id();
+        $users = DB::table('users')->where('id', '!=', $currentUser)->paginate(10);
 
         return view('admin.users.index')->with(['users' => $users]);
     }
