@@ -20,4 +20,8 @@ class Device extends Model
         'alias',
         'type'
     ];
+
+    public function parameters(){
+        return $this->hasMany(Parameters::class);
+    }
 }
