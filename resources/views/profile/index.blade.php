@@ -1,8 +1,7 @@
 @extends('layouts.auth')
-@include('basic_user.profile.edit', ['user' => $user])
 
 @section('content')
-    @include('basic_user.profile.edit-password', ['user' => $user])
+    @include('profile.edit', ['user' => $user])
     <div class="container">
         <h2>User Profile</h2>
         <hr>
@@ -27,13 +26,10 @@
         </div>
 
         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#edit_user_{{$user->id}}_modal"
+                data-bs-target="#edit_user_{{$user->id}}_modal"
         > Edit
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#edit_user_password_{{$user->id}}_modal"
-        > Change password
         </button>
     </div>
 @endsection
+
 

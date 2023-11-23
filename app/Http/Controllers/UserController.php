@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view('basic_user.profile.index')->with(['user' => $user]);
+        return view('profile.index')->with(['user' => $user]);
     }
 
     /**
@@ -91,7 +91,7 @@ class UserController extends Controller
             'email' => $request->input('email'),
         ]);
 
-        return redirect(route('user.index'));
+        return redirect(route('profile.index'));
 
     }
 
@@ -106,13 +106,15 @@ class UserController extends Controller
 
     public function editPasswordByUser(Request $request)
     {
+        // TODO zmena hesla pro aktualne prihlaseneho uzivatele nefunguje
+        dd($request);
         $newPassword = $request->input('password');
 
         Auth::user()->update([
             'password' => Hash::make($newPassword)
         ]);
 
-        return redirect(route('user.index'));
+        return redirect(route('profile.index'));
     }
 
     /**
