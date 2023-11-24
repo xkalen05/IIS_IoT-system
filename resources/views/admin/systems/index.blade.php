@@ -2,6 +2,7 @@
 
 @section('content')
     @include('admin.systems.create')
+    @include('admin.sharing_requests.sharing-requests')
 
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -10,6 +11,14 @@
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col">
+                        <button
+                            type="button"
+                            class="btn btn-secondary float-md-end"
+                            data-bs-toggle="modal"
+                            data-bs-target="#sharing_requests_modal"
+                        >
+                            Sharing requests
+                        </button>
                         <button
                             type="button"
                             class="btn btn-primary float-md-end"
@@ -64,14 +73,14 @@
                                 <td>No systems found!</td>
                             </tr>
                         @endforelse
-{{--                        <!-- Display systems that do not belong to the user -->--}}
-{{--                        @foreach($otherSystems as $system)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $system->id }}</td>--}}
-{{--                                <td>{{ $system->name }}</td>--}}
-{{--                                <td>{{ $system->description }}</td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
+                        {{--                        <!-- Display systems that do not belong to the user -->--}}
+                        {{--                        @foreach($otherSystems as $system)--}}
+                        {{--                            <tr>--}}
+                        {{--                                <td>{{ $system->id }}</td>--}}
+                        {{--                                <td>{{ $system->name }}</td>--}}
+                        {{--                                <td>{{ $system->description }}</td>--}}
+                        {{--                            </tr>--}}
+                        {{--                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>

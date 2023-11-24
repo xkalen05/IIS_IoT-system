@@ -22,7 +22,7 @@ class SystemSharingRequest extends Model
      */
     public function system(): BelongsTo
     {
-        return $this->belongsTo(System::class);
+        return $this->belongsTo(System::class, 'system_id');
     }
 
     /**
@@ -33,6 +33,12 @@ class SystemSharingRequest extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Assuming you have a 'requestUser' relationship defined
+    public function requestUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'request_user_id');
     }
 
     /**

@@ -77,5 +77,10 @@ Route::group(['middleware' => 'sharedGroup'], function () {
     Route::get('/profile', [UserController::class, 'indexProfile'])->name('profile.index');
     Route::post('/profile/edit', [UserController::class, 'editUserByUser'])->name('profile.edit');
     Route::post('/profile/editPassword', [UserController::class, 'editPasswordByUser'])->name('password.edit');
+    Route::post('/sharing-requests', [UserController::class, 'editPasswordByUser'])->name('sharing.request');       // TODO????
+
+    // TODO rozdelit do kontrolerů
+    Route::post('/sharing-requests/accept', [SystemControllerAdmin::class, 'acceptShareRequest'])->name('sharing.request.accept');
+    Route::get('/sharing-requests/deny/{id}', [SystemControllerAdmin::class, 'denyShareRequest'])->name('sharing.request.deny');
 
 });
