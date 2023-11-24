@@ -38,6 +38,8 @@
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>
+                                    <a href="#"
+                                       class="btn btn-primary">Show</a>
                                     <button
                                         type="button"
                                         class="btn btn-success"
@@ -64,21 +66,6 @@
                                 <td>No systems found!</td>
                             </tr>
                         @endforelse
-                        <!-- Display systems that do not belong to the user -->
-                        @foreach($otherSystems as $system)
-                            <tr>
-                                <td>{{ $system->id }}</td>
-                                <td>{{ $system->name }}</td>
-                                <td>{{ $system->description }}</td>
-                                <td>
-                                    @if(!\App\Models\SystemSharingRequest::hasPendingRequest($system->id, auth()->id()))
-                                        <a href="{{ route('user.system.share.request', $system->id) }}"
-                                           class="btn btn-outline-warning">Share Request</a>
-                                    @else
-                                        <button class="btn btn-outline-warning" disabled>Pending Request</button>
-                                @endif
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>

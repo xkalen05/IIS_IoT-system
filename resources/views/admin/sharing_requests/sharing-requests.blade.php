@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="sharing_requests_modal" tabindex="-1" aria-labelledby="sharing_requests_modal"
+<div class="modal modal-lg fade" id="sharing_requests_modal" tabindex="-1" aria-labelledby="sharing_requests_modal"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,15 +24,24 @@
                                 <td>{{ $request->system->name }}</td>
                                 <td>{{ $request->requestUser->name }}</td>
                                 <td>
-                                    <a href="{{route('sharing.request.deny', $request->id)}}"
-                                       class="btn btn-danger">Deny</a>
-                                    <form method="post" action="{{ route('sharing.request.accept') }}">
-                                        @csrf
-                                        <input type="hidden" name="system_id" value="{{ $request->system->id }}">
-                                        <input type="hidden" name="user_id" value="{{ $request->requestUser->id }}">
-                                        <input type="hidden" name="request_id" value="{{ $request->id }}">
-                                        <button type="submit" class="btn btn-primary">Accept</button>
-                                    </form>
+                                    <div class="row w-75">
+                                        <div class="col">
+                                            <form method="post" action="{{ route('sharing.request.accept') }}">
+                                                @csrf
+                                                <input type="hidden" name="system_id"
+                                                       value="{{ $request->system->id }}">
+                                                <input type="hidden" name="user_id"
+                                                       value="{{ $request->requestUser->id }}">
+                                                <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                                <button type="submit" class="btn btn-primary">Accept</button>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <a href="{{route('sharing.request.deny', $request->id)}}"
+                                                class="btn btn-danger">Deny</a>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
