@@ -48,8 +48,6 @@
                                     >
                                         Edit
                                     </button>
-                                    <a href="{{route('user.system.delete', $system->id)}}"
-                                       class="btn btn-danger">Delete</a>
                                     @include('basic_user.systems.share', ['system' => $system])
                                     <button
                                         type="button"
@@ -59,6 +57,8 @@
                                     >
                                         Share
                                     </button>
+                                    <a href="{{route('user.system.delete', $system->id)}}"
+                                       class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @empty
