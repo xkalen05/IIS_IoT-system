@@ -6,6 +6,7 @@ use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\SystemControllerAdmin;
 use App\Http\Controllers\SystemControllerUser;
+use App\Http\Controllers\UnregistredUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -25,9 +26,10 @@ use App\Http\Controllers\ParameterControllerUser;
 |
 */
 
-Route::get('/', function () {
-    return view('starter');
-});
+//Route::get('/', function () {
+//    return view('starter');
+//});
+Route::get('/', [UnregistredUserController::class, 'index'])->name('unregistred.index');
 
 Auth::routes();
 
