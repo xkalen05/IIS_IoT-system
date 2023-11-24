@@ -1,11 +1,10 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.parameters.create')
-    @foreach($info['device'] as $d)
-        <h1>Device: {{ $d->name }}</h1>
+    @include('basic_user.parameters.create')
+    @foreach($info['device'] as $device)
+        <h1>{{$device->name}}</h1>
     @endforeach
-
     <!--<h2>{$device}}</h2>-->
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -33,7 +32,7 @@
                         </thead>
                         <tbody>
                         @forelse($info['parameters'] as $param)
-                            @include('admin.parameters.edit', ['param' => $param])
+                            @include('basic_user.parameters.edit', ['param' => $param])
                             <tr>
                                 <td>{{ $param->id }}</td>
                                 <td>{{ $param->name }}</td>
@@ -47,7 +46,7 @@
                                     >
                                         Edit
                                     </button>
-                                    <a href="{{route('admin.parameters.delete', $param->id)}}"
+                                    <a href="{{route('user.parameters.delete', $param->id)}}"
                                        class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

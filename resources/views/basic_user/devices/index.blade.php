@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.devices.create')
+    @include('basic_user.devices.create')
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
@@ -27,22 +27,21 @@
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Alias</th>
-                            <th scope="col">Owner</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($devices as $device)
-                            @include('admin.devices.edit', ['device' => $device])
+                            @include('basic_user.devices.edit', ['device' => $device])
                             <tr>
                                 <td>{{ $device->id }}</td>
                                 <td>{{ $device->name }}</td>
                                 <td>{{ $device->description }}</td>
                                 <td>{{ $device->alias }}</td>
-                                <td>{{ $device->user_email }}</td>
                                 <td>
-                                    <a href="{{route('admin.device.show', ['encrypted_id' => encrypt($device->id)]) }}" class="btn btn-warning">Parameters</a>
-                                    <a href="{{route('admin.device.delete', $device->id)}}"
+                                    <a href="{{route('user.device.show', ['encrypted_id' => encrypt($device->id)]) }}"
+                                       class="btn btn-warning">Parameters</a>
+                                    <a href="{{route('user.device.delete', $device->id)}}"
                                        class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

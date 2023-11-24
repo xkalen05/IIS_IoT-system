@@ -18,7 +18,7 @@ class System extends Model
         'name',
         'description',
         'system_admin_id',
-        'kpi'
+        'kpis'
     ];
 
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
