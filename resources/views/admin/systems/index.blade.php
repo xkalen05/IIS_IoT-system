@@ -47,8 +47,7 @@
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>
-                                    <a href="#"
-                                       class="btn btn-primary">Show</a>
+                                    <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show Devices</a>
                                     <button
                                         type="button"
                                         class="btn btn-success"

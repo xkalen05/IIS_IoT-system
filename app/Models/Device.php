@@ -18,8 +18,13 @@ class Device extends Model
         'name',
         'description',
         'alias',
-        'type'
+        'type',
+        'system_id'
     ];
+
+    public function systems(){
+        return $this->belongsTo(System::class);
+    }
 
     public function parameters(){
         return $this->hasMany(Parameters::class);

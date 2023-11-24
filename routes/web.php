@@ -53,11 +53,14 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::post('/admin/systems/share', [SystemControllerAdmin::class, 'share'])->name('admin.system.share');
     Route::post('/admin/systems/create', [SystemControllerAdmin::class, 'create'])->name('admin.system.create');
     Route::get('/admin/systems/delete/{id}', [SystemControllerAdmin::class, 'destroy'])->name('admin.system.delete');
+    Route::get('/admin/systems/{system}', [SystemControllerAdmin::class, 'show'])->name('admin.system.show');
 
     Route::get('/admin/devices', [DeviceController::class, 'index'])->name('admin.devices');
     Route::post('/admin/devices/create', [DeviceController::class, 'create'])->name('admin.device.create');
     Route::get('/admin/devices/show/{encrypted_id}', [DeviceController::class, 'show'])->name('admin.device.show');
     Route::post('/admin/devices/edit/', [DeviceController::class, 'edit'])->name('admin.device.edit');
+    Route::post('/admin/devices/reserve/', [DeviceController::class, 'reserve'])->name('admin.device.reserve');
+    Route::get('/admin/devices/free/{id}', [DeviceController::class, 'free'])->name('admin.device.free');
     Route::get('/admin/devices/delete/{id}', [DeviceController::class, 'destroy'])->name('admin.device.delete');
 
     Route::post('/admin/parameters/create', [ParameterController::class, 'create'])->name('admin.parameters.create');
