@@ -36,6 +36,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
+                            <th scope="col">Owner</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <td>{{ $system->id }}</td>
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
+                                <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
                                 <td>
                                     <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show Devices</a>
                                     <button

@@ -30,7 +30,12 @@ class System extends Model
     {
         return $this->hasMany(Device::class);
     }
-  
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'system_admin_id');
+    }
+
     /**
      * Send a sharing request for the system.
      *
