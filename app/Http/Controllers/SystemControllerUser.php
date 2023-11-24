@@ -24,8 +24,10 @@ class SystemControllerUser extends Controller
 
         $userId = Auth::id();
         $userSystems = System::where('system_admin_id', $userId)->paginate(10);
+        $sharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->paginate(10);
 
-        return view('basic_user.systems.index-my-systems')->with(['systems' => $userSystems, 'users' => $users]);
+        return view('basic_user.systems.index-my-systems')->with(['systems' => $userSystems, 'users' => $users,
+            'sharingRequests' => $sharingRequests]);
     }
 
     public function indexSharedWithMe(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
