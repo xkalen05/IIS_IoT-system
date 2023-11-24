@@ -24,11 +24,12 @@
                         <label for="kpis" class="form-label">KPI</label>
                         <input type="text" name="kpis" placeholder="KPI string value" class="form-control" id="kpis">
                     </div>-->
+                    <label for="type">Type:</label>
                     <select name="type" id="type">
-                        @forelse($info['types'] as $types)
-                            <option value="{{$types->id}}">{{$types->name}}</option>
+                        @forelse($info['types'] as $type)
+                            <option value="{{$type->id}}">{{$type->name}}</option>
                         @empty
-                            <option name="none">-- none --</option>
+                            <option name="none"></option>
                         @endforelse
                     </select>
                     <div class="mb-3">

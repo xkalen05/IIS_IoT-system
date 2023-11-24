@@ -42,12 +42,19 @@ class ParameterController extends Controller
      */
     public function edit(Request $request)
     {
-        DB::table('parameters')->where('id', '=', $request->input('param_id'))->update([
-            'name' => $request->input('name'),
-            'kpis' => $request->input('kpis'),
-            'value' => $request->input('value'),
+        $param_id = $request->input('param_id');
+        $kpi_id = $request->input('kpi_id');
+        DB::table('parameters')->where('id','=',"$param_id")->update([
+            'kpi_id' => $kpi_id,
         ]);
 
+        return redirect()->back();
+    }
+
+    public function destroy(string $id)
+    {
+        error_log("param id $id");
+        DB::table('parameters')->where('id','=',$id)->delete();
         return redirect()->back();
     }
 }

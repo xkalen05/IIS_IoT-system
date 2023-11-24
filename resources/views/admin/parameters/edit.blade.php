@@ -9,7 +9,23 @@
             <div class="modal-body">
                 <form method="post" action="{{ route('admin.parameters.edit') }}">
                     @csrf
-                    <input type="hidden" name="param_id" value="{{ $param->id }}">
+                    <label for="kpi_id">KPI</label>
+                    <select name="kpi_id" id="kpi_id">
+                        @forelse($info['parameters'] as $parameter)
+                            @if($parameter->id == $param->id)
+                                @foreach($info['kpis'] as $kpi)
+                                    @if($kpi->tid === $parameter->tid)
+                                        <option value="{{$kpi->id}}">{{$kpi->name}}</option>
+                                        @break
+                                    @endif
+                                @endforeach
+                            @endif
+                        @empty
+                        @endforelse
+                    </select>
+                    <div class="mb-3">
+                        <input type="hidden" name="param_id" value="{{ $param->id }}">
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

@@ -97,7 +97,7 @@ class KPIController extends Controller
                 foreach ($val as $elem_key => $elem){
                     if($var_key === $elem_key){
                         //error_log("$var_key === $elem_key");
-                        $value["$val_key"]["$elem_key"] = $var;
+                        $value["$val_key"]["$elem_key"] = intval($var);
                         $new_val = $value["$val_key"]["$elem_key"];
                         //error_log("$new_val");
                     }

@@ -66,14 +66,27 @@ class DeviceController extends Controller
             error_log("$device_id");
             $device = DB::table('devices')->where('id','=', $device_id);
 
-            $parameters = DB::table('parameters')->
-            join('types', 'parameters.type_id', '=', 'types.id')->
-            where('device_id', $device_id)->get();
+            $parameters = DB::table('parameters')
+                ->join('types', 'parameters.type_id', '=', 'types.id')
+                ->leftJoin('kpis', 'parameters.kpi_id','=','kpis.id')
+                ->where('device_id','=', $device_id)
+                ->select('parameters.id', 'types.id as tid', 'types.name', 'kpis.name as kpi_name')
+                ->get()
+                ->sortBy('id');
+
+            $kpis = DB::table('kpis')
+                ->join('types','kpis.type_id','=','types.id')
+                ->select('kpis.id', 'kpis.name','types.id as tid', 'types.name as type_name')
+                ->get();
 
             $types = DB::table('types')->get();
 
+            error_log("$parameters");
+            error_log("$kpis");
+
             $info['device_id'] = $device_id;
             $info['parameters'] = $parameters;
+            $info['kpis'] = $kpis;
             $info['types'] = $types;
 
             return view('admin.devices.show', compact('info', 'info'));

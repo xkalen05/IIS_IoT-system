@@ -34,7 +34,7 @@
                             <tr>
                                 <td>{{ $param->id }}</td>
                                 <td>{{ $param->name }}</td>
-                                <td></td>
+                                <td>{{ $param->kpi_name }}</td>
                                 <td>
                                     <button
                                         type="button"
