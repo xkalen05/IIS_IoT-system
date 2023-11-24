@@ -63,11 +63,20 @@ class DeviceController extends Controller
     {
         try{
             $device_id = Crypt::decrypt($encrypted_id);
+            error_log("$device_id");
             $device = DB::table('devices')->where('id','=', $device_id);
 
-            $parameters = DB::table('parameters')->where('device_id', $device_id)->get();
+            $parameters = DB::table('parameters')->
+            join('types', 'parameters.type_id', '=', 'types.id')->
+            where('device_id', $device_id)->get();
 
-            return view('admin.devices.show', compact('device', 'parameters'));
+            $types = DB::table('types')->get();
+
+            $info['device_id'] = $device_id;
+            $info['parameters'] = $parameters;
+            $info['types'] = $types;
+
+            return view('admin.devices.show', compact('info', 'info'));
         }
         catch(Exception $e){
             return redirect(route('admin.devices'));

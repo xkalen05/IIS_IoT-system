@@ -7,6 +7,7 @@ use App\Models\Parameters;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function Laravel\Prompts\error;
 
 class ParameterController extends Controller
 {
@@ -15,19 +16,23 @@ class ParameterController extends Controller
      */
     public function create(Request $request)
     {
-        try{
+        /*try{
             decrypt($request->input('device_id'));
         }
         catch (Exception $e){
             return redirect(route('admin.devices'));
-            return redirect()->back();
-        }
+        }*/
+        $request->validate([
+            'device_id' => 'required',
+            'type' => 'required'
+        ]);
+        $device_id = $request->input('device_id');
+        $type = $request->input('type');
+        error_log("$type");
 
-        Parameters::create([
-            'name' => $request->input('name'),
-            'kpi' => $request->input('kpi'),
-            'value' => $request->input('value'),
-            'device_id' => decrypt($request->input('device_id')),
+        DB::table('parameters')->insert([
+            'type_id' => $type,
+            'device_id' => $device_id,
         ]);
 
         return redirect()->back();

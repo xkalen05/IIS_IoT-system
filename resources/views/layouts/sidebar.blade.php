@@ -15,6 +15,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.devices')}}">Devices</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.kpi')}}">KPIs</a>
+        </li>
     </ul>
 @else
 <ul class="nav flex-column bg-dark color-light min-vh-100 px-4 py-4 " data-bs-theme="dark">

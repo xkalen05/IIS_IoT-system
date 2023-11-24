@@ -19,10 +19,6 @@
                         <input type="text" value="{{$device->alias}}" name="alias" placeholder="alias" class="form-control" id="alias">
                     </div>
                     <div class="mb-3">
-                        <label for="type" class="form-label">Type</label>
-                        <input type="text" value="{{$device->type}}" name="type" placeholder="type" class="form-control" id="type">
-                    </div>
-                    <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" value="{{$device->description}}" class="form-control" id="description" name="description">
                     </div>

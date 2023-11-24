@@ -8,6 +8,7 @@ use App\Http\Controllers\SystemControllerUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,10 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::post('/admin/parameters/create/', [ParameterController::class, 'create'])->name('admin.parameters.create');
     Route::post('/admin/parameters/edit/', [ParameterController::class, 'edit'])->name('admin.parameters.edit');
     Route::get('/admin/parameters/delete/{id}', [ParameterController::class, 'destroy'])->name('admin.parameters.delete');
+
+    Route::get('/admin/kpis', [KPIController::class, 'index'])->name('admin.kpi');
+    Route::post('/admin/kpis/create', [KPIController::class, 'create'])->name('admin.kpi.create');
+    Route::get('/admin/kpis/delete/{id}', [KPIController::class, 'destroy'])->name('admin.kpis.delete');
 });
 
 Route::group(['middleware' => 'basicUser'], function (){

@@ -23,20 +23,18 @@
                         <thead>
                         <tr>
                             <th scope="col">Parameter ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Value</th>
+                            <th scope="col">Type</th>
                             <th scope="col">KPI</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($parameters as $param)
+                        @forelse($info['parameters'] as $param)
                             @include('admin.parameters.edit', ['param' => $param])
                             <tr>
                                 <td>{{ $param->id }}</td>
                                 <td>{{ $param->name }}</td>
-                                <td>{{ $param->value }}</td>
-                                <td>{{ $param->kpi }}</td>
+                                <td></td>
                                 <td>
                                     <button
                                         type="button"

@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parameters', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->float('value')->default(0);
-            $table->text('kpi')->default('0');
-            $table->unsignedBigInteger('device_id');
-            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parameters');
+        Schema::dropIfExists('types');
     }
 };
