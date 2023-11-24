@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ParameterController;
+use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\SystemControllerAdmin;
 use App\Http\Controllers\SystemControllerUser;
 use Illuminate\Support\Facades\Auth;
@@ -82,8 +83,7 @@ Route::group(['middleware' => 'sharedGroup'], function () {
     Route::post('/profile/editPassword', [UserController::class, 'editPasswordByUser'])->name('password.edit');
     Route::post('/sharing-requests', [UserController::class, 'editPasswordByUser'])->name('sharing.request');       // TODO????
 
-    // TODO rozdelit do kontrolerů
-    Route::post('/sharing-requests/accept', [SystemControllerAdmin::class, 'acceptShareRequest'])->name('sharing.request.accept');
-    Route::get('/sharing-requests/deny/{id}', [SystemControllerAdmin::class, 'denyShareRequest'])->name('sharing.request.deny');
+    Route::post('/sharing-requests/accept', [RequestsController::class, 'acceptShareRequest'])->name('sharing.request.accept');
+    Route::get('/sharing-requests/deny/{id}', [RequestsController::class, 'denyShareRequest'])->name('sharing.request.deny');
 
 });
