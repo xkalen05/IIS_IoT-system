@@ -10,7 +10,7 @@ class Parameters extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'kpi',
+        'kpis',
         'value'
     ];
 

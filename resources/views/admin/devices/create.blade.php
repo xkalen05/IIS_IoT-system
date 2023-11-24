@@ -18,10 +18,6 @@
                         <input type="text" name="alias" placeholder="alias" class="form-control" id="alias">
                     </div>
                     <div class="mb-3">
-                        <label for="type" class="form-label">Type</label>
-                        <input type="text" name="type" placeholder="type" class="form-control" id="type">
-                    </div>
-                    <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" placeholder="description" class="form-control" id="description" name="description">
                     </div>

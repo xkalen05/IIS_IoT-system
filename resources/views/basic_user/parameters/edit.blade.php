@@ -7,20 +7,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.parameters.edit') }}">
+                <form method="post" action="{{ route('user.parameters.edit') }}">
                     @csrf
                     <label for="kpi_id">KPI</label>
                     <select name="kpi_id" id="kpi_id">
                         @forelse($info['parameters'] as $parameter)
-                            @if($parameter->id === $param->id)
+                            @if($parameter->id == $param->id)
                                 @foreach($info['kpis'] as $kpi)
                                     @if($kpi->tid === $parameter->tid)
-                                        @foreach($info['device'] as $dev)
-                                            @if($dev->user_id === $kpi->user_id)
-                                                <option value="{{$kpi->id}}">{{$kpi->name}}</option>
-                                                @break
-                                            @endif
-                                        @endforeach
+                                        <option value="{{$kpi->id}}">{{$kpi->name}}</option>
+                                        @break
                                     @endif
                                 @endforeach
                             @endif
