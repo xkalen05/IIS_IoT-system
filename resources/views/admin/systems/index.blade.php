@@ -47,6 +47,8 @@
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>
+                                    <a href="#"
+                                       class="btn btn-primary">Show</a>
                                     <button
                                         type="button"
                                         class="btn btn-success"
@@ -55,8 +57,6 @@
                                     >
                                         Edit
                                     </button>
-                                    <a href="{{route('admin.system.delete', $system->id)}}"
-                                       class="btn btn-danger">Delete</a>
                                     @include('admin.systems.share', ['system' => $system])
                                     <button
                                         type="button"
@@ -66,6 +66,8 @@
                                     >
                                         Share
                                     </button>
+                                    <a href="{{route('admin.system.delete', $system->id)}}"
+                                       class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @empty
