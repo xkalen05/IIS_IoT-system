@@ -12,11 +12,15 @@
                     <label for="kpi_id">KPI</label>
                     <select name="kpi_id" id="kpi_id">
                         @forelse($info['parameters'] as $parameter)
-                            @if($parameter->id == $param->id)
+                            @if($parameter->id === $param->id)
                                 @foreach($info['kpis'] as $kpi)
                                     @if($kpi->tid === $parameter->tid)
-                                        <option value="{{$kpi->id}}">{{$kpi->name}}</option>
-                                        @break
+                                        @foreach($info['device'] as $dev)
+                                            @if($dev->user_id === $kpi->user_id)
+                                                <option value="{{$kpi->id}}">{{$kpi->name}}</option>
+                                                @break
+                                            @endif
+                                        @endforeach
                                     @endif
                                 @endforeach
                             @endif

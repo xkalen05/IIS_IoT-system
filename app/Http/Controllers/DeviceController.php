@@ -53,28 +53,29 @@ class DeviceController extends Controller
             $device_id = Crypt::decrypt($encrypted_id);
             error_log("$device_id");
             $device = DB::table('devices')
-                ->where('id','=', $device_id)
-                ->select('id', 'name')
+                ->join('users','devices.user_id','=','users.id')
+                ->where('devices.id','=', $device_id)
+                ->select('devices.id', 'devices.name', 'devices.user_id')
                 ->get();
 
             $parameters = DB::table('parameters')
                 ->join('types', 'parameters.type_id', '=', 'types.id')
                 ->leftJoin('kpis', 'parameters.kpi_id','=','kpis.id')
                 ->where('device_id','=', $device_id)
-                ->select('parameters.id', 'types.id as tid', 'types.name', 'kpis.name as kpi_name')
+                ->select('parameters.id', 'types.id as tid', 'types.name', 'kpis.name as kpi_name', 'kpis.user_id as kpi_user_id')
                 ->get()
                 ->sortBy('id');
 
             $kpis = DB::table('kpis')
                 ->join('types','kpis.type_id','=','types.id')
-                ->select('kpis.id', 'kpis.name','types.id as tid', 'types.name as type_name')
+                ->select('kpis.id', 'kpis.name', 'kpis.user_id','types.id as tid', 'types.name as type_name')
                 ->get();
 
             $types = DB::table('types')->get();
 
-            error_log("$parameters");
-            error_log("$kpis");
-            error_log("$device");
+            error_log("para: $parameters");
+            error_log("kpis: $kpis");
+            error_log("devi: $device");
 
             $info['device'] = $device;
             $info['parameters'] = $parameters;
@@ -120,3 +121,6 @@ class DeviceController extends Controller
         return redirect(route('admin.devices'));
     }
 }
+/** TODO:
+ * - admin is default owner
+ * */
