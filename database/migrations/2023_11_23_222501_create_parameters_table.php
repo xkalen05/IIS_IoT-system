@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parameters', function (Blueprint $table) {
             $table->id();
-            $table->text('value')->nullable();
+            $table->json('value')->nullable();
             $table->unsignedBigInteger('kpi_id')->nullable()->unsigned();
             $table->unsignedBigInteger('device_id');
             $table->unsignedBigInteger('type_id');
@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::table('parameters', function ($table){
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade')->onDelete('cascade');
-            $table->foreign('kpi_id')->references('id')->on('kpi')->onDelete('cascade')->onDelete('cascade');
+            $table->foreign('kpi_id')->references('id')->on('kpis')->onDelete('cascade')->onDelete('cascade');
         });
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.kpi.create')
+    @include('admin.kpis.create')
 
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -14,7 +14,7 @@
                             type="button"
                             class="btn btn-primary float-md-end"
                             data-bs-toggle="modal"
-                            data-bs-target="#create_kpi_modal"
+                            data-bs-target="#create_kpis_modal"
                         >
                             Create KPI
                         </button>
@@ -31,12 +31,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($kpi as $record)
+                        @forelse($kpis as $record)
+                            @include('admin.kpis.edit', ['kpi' => $record])
                             <tr>
                                 <td>{{ $record->id }}</td>
                                 <td>{{ $record->name }}</td>
-                                <td>---</td>
+                                <td>{{ $record->type_name }}</td>
                                 <td>
+                                    <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#edit_kpis_{{$record->id}}_modal"
+                                    >
+                                        Edit
+                                    </button>
                                     <a href="{{route('admin.kpis.delete', $record->id)}}"
                                        class="btn btn-danger">Delete</a>
                                 </td>

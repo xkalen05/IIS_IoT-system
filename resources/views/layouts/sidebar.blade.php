@@ -16,7 +16,7 @@
             <a class="nav-link" href="{{route('admin.devices')}}">Devices</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.kpi')}}">KPIs</a>
+            <a class="nav-link" href="{{route('admin.kpis')}}">KPIs</a>
         </li>
     </ul>
 @else

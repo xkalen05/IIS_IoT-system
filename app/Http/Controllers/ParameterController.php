@@ -44,7 +44,7 @@ class ParameterController extends Controller
     {
         DB::table('parameters')->where('id', '=', $request->input('param_id'))->update([
             'name' => $request->input('name'),
-            'kpi' => $request->input('kpi'),
+            'kpis' => $request->input('kpis'),
             'value' => $request->input('value'),
         ]);
 

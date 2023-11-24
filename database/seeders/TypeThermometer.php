@@ -14,7 +14,12 @@ class TypeThermometer extends Seeder
     {
         DB::table('types')->insert([
             'name' => 'Thermometer',
-            'value' => '{"temperature":{"MinimalValue":[-270,10000], "MaximalValue"}:[-270,10000]}'
+            'value' => json_encode([
+                "temperature" => [
+                    "MinimalValue" => [-270,10000],
+                    "MaximalValue" => [-270,10000],
+                ]
+            ]),
         ]);
     }
 }

@@ -1,13 +1,13 @@
 <!-- Modal -->
-<div class="modal fade" id="create_kpi_modal" tabindex="-1" aria-labelledby="create_kpi_modal" aria-hidden="true">
+<div class="modal fade" id="create_kpis_modal" tabindex="-1" aria-labelledby="create_kpis_modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="create_kpi_modal">Create new parameter</h1>
+                <h1 class="modal-title fs-5" id="create_kpis_modal">Create new parameter</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.kpi.create') }}">
+                <form method="post" action="{{ route('admin.kpis.create') }}">
                     @csrf
                     <!--
                     <input type="hidden" name="device_id" value="$device_id }}">
@@ -21,8 +21,8 @@
                         <input type="text" name="value" placeholder="float value ex. 50.01" class="form-control" id="value">
                     </div>
                     <div class="mb-3">
-                        <label for="kpi" class="form-label">KPI</label>
-                        <input type="text" name="kpi" placeholder="KPI string value" class="form-control" id="kpi">
+                        <label for="kpis" class="form-label">KPI</label>
+                        <input type="text" name="kpis" placeholder="KPI string value" class="form-control" id="kpis">
                     </div>-->
                     <select name="type" id="type">
                         @forelse($types as $type)

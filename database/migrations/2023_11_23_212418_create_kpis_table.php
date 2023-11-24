@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kpi', function (Blueprint $table) {
+        Schema::create('kpis', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->text('value')->nullable();
+            $table->json('value');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('type_id')->nullable()->unsigned();

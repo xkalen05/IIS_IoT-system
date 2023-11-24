@@ -21,8 +21,8 @@
                         <input type="text" name="value" placeholder="float value ex. 50.01" class="form-control" id="value">
                     </div>
                     <div class="mb-3">
-                        <label for="kpi" class="form-label">KPI</label>
-                        <input type="text" name="kpi" placeholder="KPI string value" class="form-control" id="kpi">
+                        <label for="kpis" class="form-label">KPI</label>
+                        <input type="text" name="kpis" placeholder="KPI string value" class="form-control" id="kpis">
                     </div>-->
                     <select name="type" id="type">
                         @forelse($info['types'] as $types)

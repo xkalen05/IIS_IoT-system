@@ -15,7 +15,11 @@ class TypeState extends Seeder
     {
         DB::table('types')->insert([
             'name' => 'State',
-            'value' => '{"state":[0,1]}'
+            'value' => json_encode([
+                "state" => [
+                    "state" => [0,1]
+                ],
+            ]),
         ]);
     }
 }

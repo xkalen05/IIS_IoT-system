@@ -56,12 +56,13 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::post('/admin/devices/edit/', [DeviceController::class, 'edit'])->name('admin.device.edit');
     Route::get('/admin/devices/delete/{id}', [DeviceController::class, 'destroy'])->name('admin.device.delete');
 
-    Route::post('/admin/parameters/create/', [ParameterController::class, 'create'])->name('admin.parameters.create');
-    Route::post('/admin/parameters/edit/', [ParameterController::class, 'edit'])->name('admin.parameters.edit');
+    Route::post('/admin/parameters/create', [ParameterController::class, 'create'])->name('admin.parameters.create');
+    Route::post('/admin/parameters/edit', [ParameterController::class, 'edit'])->name('admin.parameters.edit');
     Route::get('/admin/parameters/delete/{id}', [ParameterController::class, 'destroy'])->name('admin.parameters.delete');
 
-    Route::get('/admin/kpis', [KPIController::class, 'index'])->name('admin.kpi');
-    Route::post('/admin/kpis/create', [KPIController::class, 'create'])->name('admin.kpi.create');
+    Route::get('/admin/kpis', [KPIController::class, 'index'])->name('admin.kpis');
+    Route::post('/admin/kpis/create', [KPIController::class, 'create'])->name('admin.kpis.create');
+    Route::post('/admin/kpis/edit/', [KPIController::class, 'edit'])->name('admin.kpis.edit');
     Route::get('/admin/kpis/delete/{id}', [KPIController::class, 'destroy'])->name('admin.kpis.delete');
 });
 
