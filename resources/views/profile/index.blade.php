@@ -9,18 +9,15 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" value="{{ $user->name }}" class="form-control" readonly>
+                    <p><strong>Name:</strong> {{ $user->name }}</p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="surname" class="form-label">Surname:</label>
-                    <input type="text" value="{{ $user->surname }}" class="form-control" readonly>
+                    <p><strong>Surname:</strong> {{ $user->surname }}</p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="text" value="{{ $user->email }}" class="form-control" readonly>
+                    <p><strong>Email:</strong> {{ $user->email }}</p>
                 </div>
             </div>
         </div>
@@ -31,5 +28,3 @@
         </button>
     </div>
 @endsection
-
-

@@ -25,4 +25,30 @@ class System extends Model
     {
         return $this->belongsToMany(User::class, 'system_users', 'system_id', 'user_id');
     }
+
+    /**
+     * Send a sharing request for the system.
+     *
+     * @param int $requestUserId
+     * @return void
+     */
+    public function sendSharingRequest(int $requestUserId): void
+    {
+        SystemSharingRequest::create([
+            'system_id' => $this->id,
+            'user_id' => auth()->id(),
+            'request_user_id' => $requestUserId,
+        ]);
+    }
+
+    /**
+     * Get the sharing requests for the system.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sharingRequests()
+    {
+        return $this->hasMany(SystemSharingRequest::class);
+    }
+
 }

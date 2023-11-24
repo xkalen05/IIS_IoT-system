@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\System;
+use App\Models\SystemSharingRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use JetBrains\PhpStorm\NoReturn;
 
 class SystemControllerAdmin extends Controller
 {
@@ -21,8 +23,10 @@ class SystemControllerAdmin extends Controller
     {
         $users = User::all();
         $userSystems = System::paginate(10);
+        $sharingRequests = SystemSharingRequest::all();
 
-        return view('admin.systems.index')->with(['systems' => $userSystems, 'users' => $users]);
+        return view('admin.systems.index')->with(['systems' => $userSystems, 'users' => $users,
+            'sharingRequests' => $sharingRequests]);
     }
 
     /**
@@ -102,4 +106,5 @@ class SystemControllerAdmin extends Controller
         DB::table('systems')->where('id', '=', $id)->delete();
         return redirect(route('admin.systems'));
     }
+
 }
