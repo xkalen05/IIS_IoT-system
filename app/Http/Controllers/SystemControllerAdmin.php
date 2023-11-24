@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Device;
 use App\Models\System;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
@@ -63,9 +64,12 @@ class SystemControllerAdmin extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(System $system)
     {
-        //
+        $devices = $system->devices;
+        $devices_free = DB::table('devices')->where('system_id', '=', '')->orWhereNull('system_id')->get();
+        $name = $system->name;
+        return view('admin.systems.show', compact('system', 'name', 'devices', 'devices_free'));
     }
 
     /**

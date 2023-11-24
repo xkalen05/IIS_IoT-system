@@ -46,6 +46,7 @@
                                     >
                                         Edit
                                     </button>
+                                    <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show Devices</a>
                                     <a href="{{route('admin.system.delete', $system->id)}}"
                                        class="btn btn-danger">Delete</a>
                                     @include('admin.systems.share', ['system' => $system])

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('alias')->nullable();
             $table->string('type')->nullable();
+            $table->unsignedBigInteger('system_id')->nullable();
+            $table->foreign('system_id')->references('id')->on('systems')->onDelete('cascade');
             $table->timestamps();
         });
     }

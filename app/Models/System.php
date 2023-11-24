@@ -25,4 +25,9 @@ class System extends Model
     {
         return $this->belongsToMany(User::class, 'system_users', 'system_id', 'user_id');
     }
+
+    public function devices(): \Illuminate\Database\Eloquent\Relations\hasMany
+    {
+        return $this->hasMany(Device::class);
+    }
 }

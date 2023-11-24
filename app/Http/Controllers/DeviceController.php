@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use App\Models\Parameters;
+use App\Models\System;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -45,7 +47,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect(route('admin.devices'));
+        return redirect()->back();
     }
 
     /**
@@ -86,7 +88,7 @@ class DeviceController extends Controller
             'type' => $request->input('type'),
         ]);
 
-        return redirect(route('admin.devices'));
+        return redirect()->back();
     }
 
     /**
@@ -103,6 +105,29 @@ class DeviceController extends Controller
     public function destroy(string $id)
     {
         DB::table('devices')->where('id','=',$id)->delete();
-        return redirect(route('admin.devices'));
+        return redirect()->back();
+    }
+
+    public function reserve(Request $request)
+    {
+        //Checks if device was already reserved, by checking the lock
+        try{
+        $lock = DB::table('devices')->where('id', '=', $request->input('device_id'))->get('system_id');
+        if (is_null($lock[0]->system_id)){
+            DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
+                'system_id' => $request->input('system_id'),
+            ]);
+        }} catch(Exception $e){
+            return redirect()->back();
+        }
+
+        return redirect()->back();
+    }
+
+    public function free(string $id)
+    {
+        DB::table('devices')->where('id','=', $id)->update(['system_id'=> null]);
+
+        return redirect()->back();
     }
 }
