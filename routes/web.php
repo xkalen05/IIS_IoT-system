@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ParameterController;
+use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\SystemControllerAdmin;
 use App\Http\Controllers\SystemControllerUser;
 use Illuminate\Support\Facades\Auth;
@@ -65,9 +66,13 @@ Route::group(['middleware' => 'basicUser'], function (){
 
 
 
-    Route::get('/user/systems', [SystemControllerUser::class, 'index'])->name('user.systems');
+    Route::get('/user/systems/my', [SystemControllerUser::class, 'indexMySystems'])->name('user.systems');
+    Route::get('/user/systems/others', [SystemControllerUser::class, 'indexOtherSystems'])->name('user.systems.others');
+    Route::get('/user/systems/sharedWithMe', [SystemControllerUser::class, 'indexSharedWithMe'])->name('user.systems.shared');
+
     Route::post('/user/systems/edit', [SystemControllerUser::class, 'edit'])->name('user.system.edit');
     Route::post('/user/systems/share', [SystemControllerUser::class, 'share'])->name('user.system.share');
+    Route::get('/user/systems/shareRequest/{id}', [SystemControllerUser::class, 'shareRequest'])->name('user.system.share.request');
     Route::post('/user/systems/create', [SystemControllerUser::class, 'create'])->name('user.system.create');
     Route::get('/user/systems/delete/{id}', [SystemControllerUser::class, 'destroy'])->name('user.system.delete');
 });
@@ -76,5 +81,9 @@ Route::group(['middleware' => 'sharedGroup'], function () {
     Route::get('/profile', [UserController::class, 'indexProfile'])->name('profile.index');
     Route::post('/profile/edit', [UserController::class, 'editUserByUser'])->name('profile.edit');
     Route::post('/profile/editPassword', [UserController::class, 'editPasswordByUser'])->name('password.edit');
+    Route::post('/sharing-requests', [UserController::class, 'editPasswordByUser'])->name('sharing.request');       // TODO????
+
+    Route::post('/sharing-requests/accept', [RequestsController::class, 'acceptShareRequest'])->name('sharing.request.accept');
+    Route::get('/sharing-requests/deny/{id}', [RequestsController::class, 'denyShareRequest'])->name('sharing.request.deny');
 
 });

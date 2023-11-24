@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\System;
+use App\Models\SystemSharingRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,19 +18,39 @@ class SystemControllerUser extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function indexMySystems(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $users = User::all();
+
+        $userId = Auth::id();
+        $userSystems = System::where('system_admin_id', $userId)->paginate(10);
+        $sharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->paginate(10);
+
+        return view('basic_user.systems.index-my-systems')->with(['systems' => $userSystems, 'users' => $users,
+            'sharingRequests' => $sharingRequests]);
+    }
+
+    public function indexSharedWithMe(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $user = Auth::user();
+
+        // Retrieve the systems that belong to the user
+        $userSystems = $user->systems()->where('system_admin_id', '!=', $user->id)->paginate(10);
+
+        return view('basic_user.systems.index-shared-with-me')->with(['systems' => $userSystems]);
+    }
+
+    public function indexOtherSystems(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
         $users = User::all();
 
-        // If the user is not an admin, retrieve the systems that belong to the user
-        $userSystems = $user->systems()->paginate(10);
         // Retrieve the systems that do not belong to the user
         $otherSystems = System::whereDoesntHave('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->paginate(10);
 
-        return view('basic_user.systems.index')->with(['systems' => $userSystems, 'otherSystems' => $otherSystems, 'users' => $users]);
+        return view('basic_user.systems.index-other-systems')->with(['otherSystems' => $otherSystems, 'users' => $users]);
     }
 
     /**
@@ -55,8 +76,6 @@ class SystemControllerUser extends Controller
      */
     public function share(Request $request)
     {
-        //dd($request);
-        // TODO pridavaji se i systemy ktere uy jsou pridane
         $system = System::find($request->input('system_id'));
 
         $system->users()->attach($request->input('user_id'));
@@ -64,6 +83,24 @@ class SystemControllerUser extends Controller
 
         return redirect(route('user.systems'));
 
+    }
+
+    public function shareRequest(string $systemID)
+    {
+        $userId = auth()->id();
+
+        // Fetch the system admin ID based on the system ID
+        $system = System::find($systemID);
+        $systemAdminId = $system->system_admin_id;
+
+        // Create a new sharing request record
+        SystemSharingRequest::create([
+            'system_id' => $systemID,
+            'request_user_id' => $userId,
+            'system_owner_id' => $systemAdminId
+        ]);
+
+        return redirect(route('user.systems.others'));
     }
 
 
