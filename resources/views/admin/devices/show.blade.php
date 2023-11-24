@@ -2,7 +2,10 @@
 
 @section('content')
     @include('admin.parameters.create')
-    <h1>***DEVICE NAME***</h1>
+    @foreach($info['device'] as $d)
+        <h1>Device: {{ $d->name }}</h1>
+    @endforeach
+
     <!--<h2>{$device}}</h2>-->
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -59,8 +62,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 @endsection

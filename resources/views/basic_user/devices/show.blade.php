@@ -1,8 +1,11 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.kpis.create')
-
+    @include('basic_user.parameters.create')
+    @foreach($info['device'] as $device)
+        <h1>{{$device->name}}</h1>
+    @endforeach
+    <!--<h2>{$device}}</h2>-->
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
@@ -11,12 +14,9 @@
                     <div class="col"></div>
                     <div class="col">
                         <button
-                            type="button"
-                            class="btn btn-primary float-md-end"
-                            data-bs-toggle="modal"
-                            data-bs-target="#create_kpis_modal"
-                        >
-                            Create KPI
+                            type="button" class="btn btn-primary float-md-end" data-bs-toggle="modal"
+                            data-bs-target="#create_parameter_modal">
+                            Add Parameter
                         </button>
                     </div>
                 </div>
@@ -24,37 +24,35 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Parameter ID</th>
                             <th scope="col">Type</th>
-                            <th scope="col">Owner</th>
+                            <th scope="col">KPI</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($kpis as $record)
-                            @include('admin.kpis.edit', ['kpi' => $record])
+                        @forelse($info['parameters'] as $param)
+                            @include('basic_user.parameters.edit', ['param' => $param])
                             <tr>
-                                <td>{{ $record->id }}</td>
-                                <td>{{ $record->name }}</td>
-                                <td>{{ $record->type_name }}</td>
-                                <td>{{ $record->user_email }}</td>
+                                <td>{{ $param->id }}</td>
+                                <td>{{ $param->name }}</td>
+                                <td>{{ $param->kpi_name }}</td>
                                 <td>
                                     <button
                                         type="button"
                                         class="btn btn-success"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#edit_kpis_{{$record->id}}_modal"
+                                        data-bs-target="#edit_parameter_{{$param->id}}_modal"
                                     >
                                         Edit
                                     </button>
-                                    <a href="{{route('admin.kpis.delete', $record->id)}}"
+                                    <a href="{{route('user.parameters.delete', $param->id)}}"
                                        class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td>No KPIs found!</td>
+                                <td>No parameters found!</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -63,4 +61,5 @@
             </div>
         </div>
     </div>
+
 @endsection

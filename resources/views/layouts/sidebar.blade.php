@@ -31,7 +31,10 @@
         <a class="nav-link" href="{{route('user.systems')}}">Systems</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Devices</a>
+        <a class="nav-link" href="{{route('user.devices')}}">Devices</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('user.kpis')}}">KPIs</a>
     </li>
 </ul>
 @endif

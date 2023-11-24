@@ -7,23 +7,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
-class KPIController extends Controller
+class KPIControllerUser extends Controller
 {
     public function index()
     {
+        $user_id = Auth::user()['id'];
+
         $kpis = DB::table('kpis')
             ->join('types','types.id','=','kpis.type_id')
-            ->join('users', 'kpis.user_id','=','users.id')
-            ->select('kpis.*', 'types.name as type_name', 'users.email as user_email')->get();
+            ->where('kpis.user_id','=',"$user_id")
+            ->select('kpis.*', 'types.name as type_name')->get();
         error_log("$kpis");
         $types = DB::table('types')->get();
 
-        return view('admin.kpis.index', compact('types', 'types'))->with(['kpis' => $kpis]);
+        return view('basic_user.kpis.index', compact('types', 'types'))->with(['kpis' => $kpis]);
 
     }
 
     public function create(Request $request)
     {
+        $user_id = Auth::user()['id'];
+        error_log("$user_id");
         $type_id = $request->input('type');
 
         $value = DB::table('types')
@@ -31,6 +35,7 @@ class KPIController extends Controller
             ->select('value')
             ->get();
 
+        error_log("$value");
 
         $value = json_decode($value[0]->value, true);
         foreach ($value as $val_key => $val){
@@ -54,7 +59,7 @@ class KPIController extends Controller
 
         DB::table('kpis')->insert([
             'type_id' => $request->input('type'),
-            'user_id' => Auth::user()['id'],
+            'user_id' => $user_id,
             'name' => $request->input('name'),
             'value' => $value,
         ]);

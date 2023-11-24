@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KPIController;
+use App\Http\Controllers\DeviceControllerUser;
+use App\Http\Controllers\KPIControllerUser;
+use App\Http\Controllers\ParameterControllerUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,13 +72,26 @@ Route::group(['middleware' => 'adminUser'], function (){
 Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/dashboard', [DashboardController::class, 'indexUser'])->name('user.dashboard');
 
-
-
     Route::get('/user/systems', [SystemControllerUser::class, 'index'])->name('user.systems');
     Route::post('/user/systems/edit', [SystemControllerUser::class, 'edit'])->name('user.system.edit');
     Route::post('/user/systems/share', [SystemControllerUser::class, 'share'])->name('user.system.share');
     Route::post('/user/systems/create', [SystemControllerUser::class, 'create'])->name('user.system.create');
     Route::get('/user/systems/delete/{id}', [SystemControllerUser::class, 'destroy'])->name('user.system.delete');
+
+    Route::get('/user/devices', [DeviceControllerUser::class, 'index'])->name('user.devices');
+    Route::post('/user/devices/create', [DeviceControllerUser::class, 'create'])->name('user.device.create');
+    Route::get('/user/devices/show/{encrypted_id}', [DeviceControllerUser::class, 'show'])->name('user.device.show');
+    Route::post('/user/devices/edit', [DeviceControllerUser::class, 'edit'])->name('user.device.edit');
+    Route::get('/user/devices/delete/{id}', [DeviceControllerUser::class, 'destroy'])->name('user.device.delete');
+
+    Route::post('/user/parameters/create', [ParameterControllerUser::class, 'create'])->name('user.parameters.create');
+    Route::post('/user/parameters/edit', [ParameterControllerUser::class, 'edit'])->name('user.parameters.edit');
+    Route::get('/user/parameters/delete/{id}', [ParameterControllerUser::class, 'destroy'])->name('user.parameters.delete');
+
+    Route::get('/user/kpis', [KPIControllerUser::class, 'index'])->name('user.kpis');
+    Route::post('/user/kpis/create', [KPIControllerUser::class, 'create'])->name('user.kpis.create');
+    Route::post('/user/kpis/edit/', [KPIControllerUser::class, 'edit'])->name('user.kpis.edit');
+    Route::get('/user/kpis/delete/{id}', [KPIControllerUser::class, 'destroy'])->name('user.kpis.delete');
 });
 
 Route::group(['middleware' => 'sharedGroup'], function () {

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
 
-class ParameterController extends Controller
+class ParameterControllerUser extends Controller
 {
     /**
      * Show the form for creating a new resource.

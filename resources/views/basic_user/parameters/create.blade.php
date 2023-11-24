@@ -3,11 +3,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="create_parameter_modal">Create new parameter</h1>
+                @foreach($info['device'] as $device)
+                    <h1 class="modal-title fs-5" id="create_parameter_modal">{{$device->name}}</h1>
+                @endforeach
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.parameters.create') }}">
+                <form method="post" action="{{ route('user.parameters.create') }}">
                     @csrf
                     <label for="type">Type:</label>
                     <select name="type" id="type">

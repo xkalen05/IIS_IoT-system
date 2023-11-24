@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.kpis.edit') }}">
+                <form method="post" action="{{ route('user.kpis.edit') }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $kpi->id }}">
                     @forelse(json_decode($kpi->value,true) as $rec_key => $record)
@@ -21,6 +21,11 @@
                             </div>
                         @endforeach
                     @empty
+                        <div class="mb-3">
+                            <label for="surname" class="form-label">Description</label>
+                            <input type="text" value="None" name="description" placeholder="description"
+                                   class="form-control" id="description">
+                        </div>
                     @endforelse
 
                     <button type="submit" class="btn btn-primary">Save</button>
