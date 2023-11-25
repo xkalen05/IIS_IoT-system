@@ -33,7 +33,7 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
+{{--                            <th scope="col">ID</th>--}}
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Owner</th>
@@ -44,7 +44,7 @@
                         @forelse($systems as $system)
                             @include('admin.systems.edit', ['system' => $system])
                             <tr>
-                                <td>{{ $system->id }}</td>
+{{--                                <td>{{ $system->id }}</td>--}}
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
@@ -76,14 +76,6 @@
                                 <td>No systems found!</td>
                             </tr>
                         @endforelse
-                        {{--                        <!-- Display systems that do not belong to the user -->--}}
-                        {{--                        @foreach($otherSystems as $system)--}}
-                        {{--                            <tr>--}}
-                        {{--                                <td>{{ $system->id }}</td>--}}
-                        {{--                                <td>{{ $system->name }}</td>--}}
-                        {{--                                <td>{{ $system->description }}</td>--}}
-                        {{--                            </tr>--}}
-                        {{--                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>

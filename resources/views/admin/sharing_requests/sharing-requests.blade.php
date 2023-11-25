@@ -12,7 +12,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Request ID</th>
+{{--                            <th>Request ID</th>--}}
                             <th>System Name</th>
                             <th>Request From</th>
                         </tr>
@@ -20,7 +20,7 @@
                         <tbody>
                         @foreach($sharingRequests as $request)
                             <tr>
-                                <td>{{ $request->id }}</td>
+{{--                                <td>{{ $request->id }}</td>--}}
                                 <td>{{ $request->system->name }}</td>
                                 <td>{{ $request->requestUser->name }}</td>
                                 <td>

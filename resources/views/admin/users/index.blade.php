@@ -24,7 +24,7 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
+{{--                            <th scope="col">ID</th>--}}
                             <th scope="col">Name</th>
                             <th scope="col">Surname</th>
                             <th scope="col">email</th>
@@ -36,7 +36,7 @@
                         @forelse($users as $user)
                             @include('admin.users.edit', ['user' => $user])
                             <tr>
-                                <td>{{ $user->id }}</td>
+{{--                                <td>{{ $user->id }}</td>--}}
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->surname }}</td>
                                 <td>{{ $user->email }}</td>

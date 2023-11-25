@@ -32,7 +32,7 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
+{{--                            <th scope="col">ID</th>--}}
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Actions</th>
@@ -42,7 +42,7 @@
                         @forelse($systems as $system)
                             @include('basic_user.systems.edit', ['system' => $system])
                             <tr>
-                                <td>{{ $system->id }}</td>
+{{--                                <td>{{ $system->id }}</td>--}}
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>
