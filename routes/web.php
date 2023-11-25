@@ -87,12 +87,16 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/systems/shareRequest/{id}', [SystemControllerUser::class, 'shareRequest'])->name('user.system.share.request');
     Route::post('/user/systems/create', [SystemControllerUser::class, 'create'])->name('user.system.create');
     Route::get('/user/systems/delete/{id}', [SystemControllerUser::class, 'destroy'])->name('user.system.delete');
+    Route::get('/user/systems/{system}', [SystemControllerUser::class, 'show'])->name('user.system.show');
+    Route::get('/user/systems/shared/{system}', [SystemControllerUser::class, 'showShared'])->name('user.system.showShared');
 
     Route::get('/user/devices', [DeviceControllerUser::class, 'index'])->name('user.devices');
     Route::post('/user/devices/create', [DeviceControllerUser::class, 'create'])->name('user.device.create');
     Route::get('/user/devices/show/{encrypted_id}', [DeviceControllerUser::class, 'show'])->name('user.device.show');
     Route::post('/user/devices/edit', [DeviceControllerUser::class, 'edit'])->name('user.device.edit');
     Route::get('/user/devices/delete/{id}', [DeviceControllerUser::class, 'destroy'])->name('user.device.delete');
+    Route::post('/user/devices/reserve/', [DeviceControllerUser::class, 'reserve'])->name('user.device.reserve');
+    Route::get('/user/devices/free/{id}', [DeviceControllerUser::class, 'free'])->name('user.device.free');
 
     Route::post('/user/parameters/create', [ParameterControllerUser::class, 'create'])->name('user.parameters.create');
     Route::post('/user/parameters/edit', [ParameterControllerUser::class, 'edit'])->name('user.parameters.edit');
