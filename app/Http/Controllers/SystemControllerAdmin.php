@@ -7,6 +7,7 @@ use App\Models\System;
 use App\Models\SystemSharingRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -36,8 +37,22 @@ class SystemControllerAdmin extends Controller
      */
     public function create(Request $request)
     {
-        $user_id = Auth::id();  // TODO prasarna
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:4',
+            'description' => 'required|string|max:100',
+            // Add other validation rules if needed
+        ]);
 
+        // Check if validation fails
+        if ($validator->fails()) {
+            // Redirect back with errors and old input
+            return redirect(route('admin.systems'))->with('error', 'An Error occured when creating a system')->
+                withErrors($validator)->withInput();
+        }
+
+        // Validation passed, create the system
+        $user_id = Auth::id();
         $system = System::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
