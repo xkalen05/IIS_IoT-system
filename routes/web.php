@@ -35,8 +35,8 @@ Auth::routes();
 
 Route::get('/home', function (){
     return match (Auth::user()->role){
-      'admin' => redirect(\route('admin.dashboard')),
-      'basic_user' => redirect(route('user.dashboard')),
+      'admin' => redirect(\route('admin.systems')),
+      'basic_user' => redirect(route('user.systems')),
     };
 })->middleware('auth')->name('home');
 
