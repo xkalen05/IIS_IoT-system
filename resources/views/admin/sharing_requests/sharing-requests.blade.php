@@ -25,7 +25,7 @@
                                 <tr>
                                     {{--                                <td>{{ $request->id }}</td>--}}
                                     <td>{{ $request->system->name }}</td>
-                                    <td>{{ $request->requestUser->name }}</td>
+                                    <td>{{ $request->requestUser->name }} {{ $request->requestUser->surname }} - {{ $request->requestUser->email }}</td>
                                     <td>
                                         <div class="row w-75">
                                             <div class="col">
