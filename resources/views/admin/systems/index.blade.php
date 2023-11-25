@@ -12,9 +12,25 @@
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col">
+                        <style>
+                            @keyframes blink {
+                                0% {
+                                    opacity: 1;
+                                }
+                                50% {
+                                    opacity: 0;
+                                }
+                                100% {
+                                    opacity: 1;
+                                }
+                            }
+                            .btn-danger.blinking {
+                                animation: blink 1s infinite;
+                            }
+                        </style>
                         <button
                             type="button"
-                            class="btn btn-secondary float-md-end"
+                            class="btn btn-{{ $hasSharingRequests ? 'danger blinking' : 'secondary' }} float-md-end"
                             data-bs-toggle="modal"
                             data-bs-target="#sharing_requests_modal"
                         >
@@ -34,7 +50,7 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-{{--                            <th scope="col">ID</th>--}}
+                            {{--                            <th scope="col">ID</th>--}}
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Owner</th>
@@ -45,12 +61,13 @@
                         @forelse($systems as $system)
                             @include('admin.systems.edit', ['system' => $system])
                             <tr>
-{{--                                <td>{{ $system->id }}</td>--}}
+                                {{--                                <td>{{ $system->id }}</td>--}}
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
                                 <td>
-                                    <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show Devices</a>
+                                    <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show
+                                        Devices</a>
                                     <button
                                         type="button"
                                         class="btn btn-success"

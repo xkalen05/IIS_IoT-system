@@ -25,9 +25,10 @@ class SystemControllerAdmin extends Controller
         $users = User::all();
         $userSystems = System::paginate(10);
         $sharingRequests = SystemSharingRequest::all();
+        $hasSharingRequests = SystemSharingRequest::exists();
 
         return view('admin.systems.index')->with(['systems' => $userSystems, 'users' => $users,
-            'sharingRequests' => $sharingRequests]);
+            'sharingRequests' => $sharingRequests, 'hasSharingRequests' => $hasSharingRequests]);
     }
 
     /**
