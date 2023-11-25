@@ -19,7 +19,7 @@
                                 @foreach($users as $user)
                                     @if(!$user->systems->contains($system->id) && $user->role !== 'admin')
                                         <option value="{{ $user->id }}">
-                                            {{ $user->name }}
+                                            {{ $user->name }} {{ $user->surname }} - {{ $user->email }}
                                         </option>
                                     @endif
                                 @endforeach
