@@ -50,6 +50,8 @@
                     @if(count($systems) > 0)
                         <table class="table table-light">
                             <thead>
+                    <table class="table table-light">
+                        <thead>
                             <tr>
     {{--                            <th scope="col">ID</th>--}}
                                 <th scope="col">Name</th>

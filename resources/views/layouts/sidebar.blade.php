@@ -35,7 +35,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{ route('user.systems') }}">My Systems</a></li>
                 <li><a class="dropdown-item" href="{{ route('user.systems.shared') }}">Shared with Me</a></li>
-                <li><a class="dropdown-item" href="{{ route('user.systems.others') }}">Other Systems</a</li>
+                <li><a class="dropdown-item" href="{{ route('user.systems.others') }}">Other Systems</a></li>
             </ul>
         </li>
         <li class="nav-item">

@@ -30,8 +30,8 @@
                                     <td>{{ $system->description }}</td>
                                     <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
                                     <td>
-                                        <a href="#"
-                                           class="btn btn-primary">Show</a>
+                                    <a href="{{route('user.system.showShared', $system->id) }}"
+                                       class="btn btn-primary">Show</a>
                                     </td>
                                 </tr>
                             @endforeach
