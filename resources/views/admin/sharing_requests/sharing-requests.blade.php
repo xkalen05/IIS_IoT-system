@@ -18,7 +18,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sharingRequests as $request)
+                         @foreach($sharingRequests as $request)
                             <tr>
 {{--                                <td>{{ $request->id }}</td>--}}
                                 <td>{{ $request->system->name }}</td>
