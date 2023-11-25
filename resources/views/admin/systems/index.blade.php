@@ -47,55 +47,55 @@
                     </div>
                 </div>
                 <div class="row py-2">
-                    <table class="table table-light">
-                        <thead>
-                        <tr>
-                            {{--                            <th scope="col">ID</th>--}}
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse($systems as $system)
-                            @include('admin.systems.edit', ['system' => $system])
+                    @if(count($systems) > 0)
+                        <table class="table table-light">
+                            <thead>
                             <tr>
-                                {{--                                <td>{{ $system->id }}</td>--}}
-                                <td>{{ $system->name }}</td>
-                                <td>{{ $system->description }}</td>
-                                <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
-                                <td>
-                                    <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show
-                                        Devices</a>
-                                    <button
-                                        type="button"
-                                        class="btn btn-success"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#edit_system_{{$system->id}}_modal"
-                                    >
-                                        Edit
-                                    </button>
-                                    @include('admin.systems.share', ['system' => $system])
-                                    <button
-                                        type="button"
-                                        class="btn btn-warning"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#share_system_{{$system->id}}_modal"
-                                    >
-                                        Share
-                                    </button>
-                                    <a href="{{route('admin.system.delete', $system->id)}}"
-                                       class="btn btn-danger">Delete</a>
-                                </td>
+                                {{--                            <th scope="col">ID</th>--}}
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Owner</th>
+                                <th scope="col">Actions</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td>No systems found!</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($systems as $system)
+                                @include('admin.systems.edit', ['system' => $system])
+                                <tr>
+                                    {{--                                <td>{{ $system->id }}</td>--}}
+                                    <td>{{ $system->name }}</td>
+                                    <td>{{ $system->description }}</td>
+                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
+                                    <td>
+                                        <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show
+                                            Devices</a>
+                                        <button
+                                            type="button"
+                                            class="btn btn-success"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#edit_system_{{$system->id}}_modal"
+                                        >
+                                            Edit
+                                        </button>
+                                        @include('admin.systems.share', ['system' => $system])
+                                        <button
+                                            type="button"
+                                            class="btn btn-warning"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#share_system_{{$system->id}}_modal"
+                                        >
+                                            Share
+                                        </button>
+                                        <a href="{{route('admin.system.delete', $system->id)}}"
+                                           class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>No systems found!</p>
+                    @endif
                 </div>
             </div>
         </div>
