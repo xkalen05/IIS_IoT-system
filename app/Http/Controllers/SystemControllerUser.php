@@ -68,7 +68,7 @@ class SystemControllerUser extends Controller
 
         $system->users()->attach($user_id);
 
-        return redirect(route('user.systems'));
+        return redirect(route('user.systems'))->with('success', 'System was sucessfully created');
     }
 
     /**
@@ -81,7 +81,7 @@ class SystemControllerUser extends Controller
         $system->users()->attach($request->input('user_id'));
 
 
-        return redirect(route('user.systems'));
+        return redirect(route('user.systems'))->with('success', 'System was sucessfully shared');
 
     }
 
@@ -127,7 +127,7 @@ class SystemControllerUser extends Controller
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
 
-        return redirect(route('user.systems'));
+        return redirect(route('user.systems'))->with('success', 'Changes were succesfully saved');
     }
 
     /**
@@ -144,6 +144,6 @@ class SystemControllerUser extends Controller
     public function destroy(string $id)
     {
         DB::table('systems')->where('id', '=', $id)->delete();
-        return redirect(route('user.systems'));
+        return redirect(route('user.systems'))->with('success', 'System was succesfully deleted');
     }
 }

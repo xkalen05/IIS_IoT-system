@@ -47,7 +47,8 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return redirect(route('admin.users'));
+        return redirect(route('admin.users'))->with('success', 'User ' . $request->input('name') . ' ' .
+            $request->input('surname') .' succesfully created.');
     }
 
     /**
@@ -79,7 +80,7 @@ class UserController extends Controller
             'role' => $request->input('role'),
         ]);
 
-        return redirect(route('admin.users'));
+        return redirect(route('admin.users'))->with('success', 'Changes were succesfully saved');
 
     }
 
@@ -92,7 +93,7 @@ class UserController extends Controller
             'email' => $request->input('email'),
         ]);
 
-        return redirect(route('profile.index'));
+        return redirect(route('profile.index'))->with('success', 'Changes were succesfully saved');
 
     }
 
@@ -102,7 +103,8 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
 
-        return redirect(route('admin.users'));
+        return redirect(route('admin.users'))->with('success', 'Password for user ' . $request->input('name') . ' ' .
+            $request->input('surname') .' was succesfully changed.');
     }
 
     public function editPasswordByUser(Request $request)
@@ -115,7 +117,7 @@ class UserController extends Controller
             'password' => Hash::make($newPassword)
         ]);
 
-        return redirect(route('profile.index'));
+        return redirect(route('profile.index'))->with('success', 'Password was succefully changed');
     }
 
     /**
@@ -132,7 +134,7 @@ class UserController extends Controller
     public function destroy(string $id): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         DB::table('users')->where('id', '=', $id)->delete();
-        return redirect(route('admin.users'));
+        return redirect(route('admin.users'))->with('success', 'User was succesfully deleted');
     }
 
 
