@@ -25,7 +25,7 @@
                             data-bs-toggle="modal"
                             data-bs-target="#reserve_device_{{$system->id}}_modal"
                         >
-                            Reserve device
+                            Add device to system
                         </button>
                     </div>
                 </div>
@@ -33,11 +33,9 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Alias</th>
-                            <th scope="col">Type</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
@@ -45,11 +43,9 @@
                         @forelse($devices as $device)
                             @include('basic_user.devices.edit', ['device' => $device])
                             <tr>
-                                <td>{{ $device->id }}</td>
                                 <td>{{ $device->name }}</td>
                                 <td>{{ $device->description }}</td>
                                 <td>{{ $device->alias }}</td>
-                                <td>{{ $device->type }}</td>
                                 <td>
                                     <button type="button" class="btn btn-success"
                                             data-bs-toggle="modal" data-bs-target="#edit_device_{{$device->id}}_modal">
