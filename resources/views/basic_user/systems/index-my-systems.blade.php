@@ -12,13 +12,30 @@
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col">
+                        <style>
+                            @keyframes blink {
+                                0% {
+                                    opacity: 1;
+                                }
+                                50% {
+                                    opacity: 0;
+                                }
+                                100% {
+                                    opacity: 1;
+                                }
+                            }
+                            .btn-danger.blinking {
+                                animation: blink 1s infinite;
+                            }
+                        </style>
                         <button
                             type="button"
-                            class="btn btn-secondary float-md-end"
+                            class="btn btn-{{ $hasSharingRequests ? 'danger blinking' : 'secondary' }} float-md-end"
                             data-bs-toggle="modal"
                             data-bs-target="#sharing_requests_modal"
                         >
                             Sharing requests
+                        </button>
                         <button
                             type="button"
                             class="btn btn-primary float-md-end"
