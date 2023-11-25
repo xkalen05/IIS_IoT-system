@@ -65,7 +65,7 @@
                                     {{--                                <td>{{ $system->id }}</td>--}}
                                     <td>{{ $system->name }}</td>
                                     <td>{{ $system->description }}</td>
-                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
+                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
                                     <td>
                                         <a href="{{route('admin.system.show', $system->id) }}" class="btn btn-dark">Show
                                             Devices</a>

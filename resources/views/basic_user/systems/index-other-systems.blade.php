@@ -29,7 +29,7 @@
     {{--                                <td>{{ $system->id }}</td>--}}
                                     <td>{{ $system->name }}</td>
                                     <td>{{ $system->description }}</td>
-                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
+                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
                                     <td>
                                         @if(!\App\Models\SystemSharingRequest::hasPendingRequest($system->id, auth()->id()))
                                             <a href="{{ route('user.system.share.request', $system->id) }}"

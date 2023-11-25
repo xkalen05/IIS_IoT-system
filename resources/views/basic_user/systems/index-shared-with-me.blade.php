@@ -28,7 +28,7 @@
     {{--                                <td>{{ $system->id }}</td>--}}
                                     <td>{{ $system->name }}</td>
                                     <td>{{ $system->description }}</td>
-                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
+                                    <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
                                     <td>
                                         <a href="#"
                                            class="btn btn-primary">Show</a>
