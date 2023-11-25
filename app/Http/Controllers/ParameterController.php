@@ -8,9 +8,12 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
+use App\Traits\CheckResult;
 
 class ParameterController extends Controller
 {
+    use CheckResult;
+
     /**
      * Show the form for creating a new resource.
      */
@@ -24,9 +27,37 @@ class ParameterController extends Controller
         $type = $request->input('type');
         error_log("$type");
 
+        $value = DB::table('types')
+            ->where('id','=',"$type")
+            ->select('value')
+            ->get();
+
+        $value = json_decode($value[0]->value, true);
+
+        foreach ($value as $elem_key => $elem){
+            $num_of_elem = count($elem);
+            error_log("$num_of_elem");
+            if($num_of_elem === 1){
+                foreach ($elem as $val_key => $val){
+                    $value["$elem_key"] = $val[0];
+                }
+            }else if($num_of_elem === 2){
+                foreach ($elem as $val_key => $limits){
+                    $from = $limits[0];
+                    $to = $limits[1];
+                    break;
+                }
+                $value["$elem_key"] = $from;
+                error_log("22222");
+            }
+        }
+
+        $value = json_encode($value);
+
         DB::table('parameters')->insert([
             'type_id' => $type,
             'device_id' => $device_id,
+            'value' => $value,
         ]);
 
         return redirect()->back();
@@ -38,9 +69,8 @@ class ParameterController extends Controller
     {
         $param_id = $request->input('param_id');
         $kpi_id = $request->input('kpi_id');
-        DB::table('parameters')->where('id','=',"$param_id")->update([
-            'kpi_id' => $kpi_id,
-        ]);
+
+        $this->CheckResultFunc($param_id, $kpi_id);
 
         return redirect()->back();
     }

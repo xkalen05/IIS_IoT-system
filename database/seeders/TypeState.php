@@ -14,10 +14,10 @@ class TypeState extends Seeder
     public function run(): void
     {
         DB::table('types')->insert([
-            'name' => 'State',
+            'name' => 'State (on/off)',
             'value' => json_encode([
                 "state" => [
-                    "state" => [0,1]
+                    "isActive" => [0,1]
                 ],
             ]),
         ]);

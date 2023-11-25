@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Traits\CheckResult;
 
 class KPIControllerUser extends Controller
 {
+    use CheckResult;
+
     public function index()
     {
         $user_id = Auth::user()['id'];
@@ -122,6 +125,16 @@ class KPIControllerUser extends Controller
             'value' => $value,
         ]);
         error_log("db updated");
+
+        $param_table = DB::table('kpis')
+            ->where('kpis.id','=',"$id")
+            ->join('parameters','parameters.kpi_id','=','kpis.id')
+            ->select('kpis.id as kpi_id', 'parameters.id as param_id')
+            ->get();
+
+        foreach ($param_table as $res){
+            $this->CheckResultFunc($res->param_id, $res->kpi_id);
+        }
 
         return redirect()->back();
     }
