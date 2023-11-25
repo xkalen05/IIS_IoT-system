@@ -23,11 +23,12 @@ class SystemControllerUser extends Controller
         $users = User::all();
 
         $userId = Auth::id();
-        $userSystems = System::where('system_admin_id', $userId)->paginate(10);
-        $sharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->paginate(10);
+        $userSystems = System::where('system_admin_id', $userId)->paginate(1000);
+        $sharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->paginate(1000);
+        $hasSharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->exists();
 
         return view('basic_user.systems.index-my-systems')->with(['systems' => $userSystems, 'users' => $users,
-            'sharingRequests' => $sharingRequests]);
+            'sharingRequests' => $sharingRequests, 'hasSharingRequests' => $hasSharingRequests]);
     }
 
     public function indexSharedWithMe(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -35,7 +36,7 @@ class SystemControllerUser extends Controller
         $user = Auth::user();
 
         // Retrieve the systems that belong to the user
-        $userSystems = $user->systems()->where('system_admin_id', '!=', $user->id)->paginate(10);
+        $userSystems = $user->systems()->where('system_admin_id', '!=', $user->id)->paginate(1000);
 
         return view('basic_user.systems.index-shared-with-me')->with(['systems' => $userSystems]);
     }
@@ -48,7 +49,7 @@ class SystemControllerUser extends Controller
         // Retrieve the systems that do not belong to the user
         $otherSystems = System::whereDoesntHave('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->paginate(10);
+        })->paginate(1000);
 
         return view('basic_user.systems.index-other-systems')->with(['otherSystems' => $otherSystems, 'users' => $users]);
     }
