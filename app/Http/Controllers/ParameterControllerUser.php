@@ -8,9 +8,11 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
+use App\Traits\CheckResult;
 
 class ParameterControllerUser extends Controller
 {
+    use CheckResult;
     /**
      * Show the form for creating a new resource.
      */
@@ -38,9 +40,8 @@ class ParameterControllerUser extends Controller
     {
         $param_id = $request->input('param_id');
         $kpi_id = $request->input('kpi_id');
-        DB::table('parameters')->where('id','=',"$param_id")->update([
-            'kpi_id' => $kpi_id,
-        ]);
+
+        $this->CheckResultFunc($param_id, $kpi_id);
 
         return redirect()->back();
     }

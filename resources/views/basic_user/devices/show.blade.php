@@ -28,6 +28,7 @@
                             <th scope="col">Type</th>
                             <th scope="col">KPI</th>
                             <th scope="col">Actions</th>
+                            <th scope="col" class="text-center">State</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,11 @@
                                     <a href="{{route('user.parameters.delete', $param->id)}}"
                                        class="btn btn-danger">Delete</a>
                                 </td>
+                                @if($param->result === 0)
+                                    <td class="bg-danger text-center">ERROR</td>
+                                @else
+                                    <td class="bg-success text-center">OK</td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

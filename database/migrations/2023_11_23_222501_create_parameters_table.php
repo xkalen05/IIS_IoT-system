@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('parameters', function (Blueprint $table) {
             $table->id();
+            $table->boolean('result')->default(0);
             $table->json('value')->nullable();
             $table->unsignedBigInteger('kpi_id')->nullable()->unsigned();
             $table->unsignedBigInteger('device_id');

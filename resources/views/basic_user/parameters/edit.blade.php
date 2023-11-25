@@ -16,7 +16,6 @@
                                 @foreach($info['kpis'] as $kpi)
                                     @if($kpi->tid === $parameter->tid)
                                         <option value="{{$kpi->id}}">{{$kpi->name}}</option>
-                                        @break
                                     @endif
                                 @endforeach
                             @endif

@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TypeThermometer extends Seeder
+class TypeLiquidFlow extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,11 +14,11 @@ class TypeThermometer extends Seeder
     public function run(): void
     {
         DB::table('types')->insert([
-            'name' => 'Thermometer (°C)',
+            'name' => 'Liquid Flow (m^3)',
             'value' => json_encode([
-                "temperature(°C)" => [
-                    "MinimalValue" => [-270,10000],
-                    "MaximalValue" => [-270,10000],
+                "m^3" => [
+                    "MinimalValue" => [0,10000000],
+                    "MaximalValue" => [0,10000000],
                 ]
             ]),
         ]);

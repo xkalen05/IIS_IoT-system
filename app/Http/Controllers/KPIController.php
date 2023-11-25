@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Traits\CheckResult;
 
 class KPIController extends Controller
 {
+    use CheckResult;
+
     public function index()
     {
         $kpis = DB::table('kpis')
@@ -79,6 +82,7 @@ class KPIController extends Controller
         $type = json_decode($type[0]->value,true);
 
 
+
         $value = json_decode($kpi[0]->value,true);
 
         foreach ($data as $var_key => $var){
@@ -117,6 +121,16 @@ class KPIController extends Controller
             'value' => $value,
         ]);
         error_log("db updated");
+
+        $param_table = DB::table('kpis')
+            ->where('kpis.id','=',"$id")
+            ->join('parameters','parameters.kpi_id','=','kpis.id')
+            ->select('kpis.id as kpi_id', 'parameters.id as param_id')
+            ->get();
+
+        foreach ($param_table as $res){
+            $this->CheckResultFunc($res->param_id, $res->kpi_id);
+        }
 
         return redirect()->back();
     }
