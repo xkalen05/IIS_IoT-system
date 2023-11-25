@@ -31,7 +31,7 @@
                                     <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
                                     <td>
                                     <a href="{{route('user.system.showShared', $system->id) }}"
-                                       class="btn btn-primary">Show</a>
+                                       class="btn btn-primary">Show devices</a>
                                     </td>
                                 </tr>
                             @endforeach
