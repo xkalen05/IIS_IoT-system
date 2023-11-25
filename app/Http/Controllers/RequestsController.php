@@ -17,12 +17,12 @@ class RequestsController extends Controller
 
         DB::table('system_sharing_requests')->where('id', '=', $requestID)->delete();
 
-        return redirect(route('admin.systems'));
+        return redirect(route('admin.systems'))->with('success', 'Sharing request was accepted');
     }
 
     public function denyShareRequest(string $requestID)
     {
         DB::table('system_sharing_requests')->where('id', '=', $requestID)->delete();
-        return redirect(route('admin.systems'));
+        return redirect(route('admin.systems'))->with('success', 'Sharing request was denied');
     }
 }
