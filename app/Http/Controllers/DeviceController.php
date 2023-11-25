@@ -99,8 +99,7 @@ class DeviceController extends Controller
         DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'alias' => $request->input('alias'),
-            'type' => $request->input('type'),
+            'alias' => $request->input('alias')
         ]);
 
         return redirect()->back();
@@ -133,17 +132,17 @@ class DeviceController extends Controller
                 'system_id' => $request->input('system_id'),
             ]);
         }} catch(Exception $e){
-            return redirect()->back();
+            return redirect()->back()->witn("error", "There was an error!");
         }
 
-        return redirect()->back();
+        return redirect()->back()->with("success", "Device was successfully added!");
     }
 
     public function free(string $id)
     {
         DB::table('devices')->where('id','=', $id)->update(['system_id'=> null]);
 
-        return redirect()->back();
+        return redirect()->back()->with("success", "Device was successfully removed from the system!");
     }
 }
 /** TODO:

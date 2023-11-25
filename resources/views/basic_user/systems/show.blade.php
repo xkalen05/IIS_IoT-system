@@ -1,8 +1,8 @@
 @extends('layouts.auth')
 
 @section('content')
-    @include('admin.devices.create')
-    @include('admin.devices.reserve')
+    @include('basic_user.devices.create')
+    @include('basic_user.devices.reserve')
     <h1>{{$system->name}}</h1>
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
@@ -41,7 +41,7 @@
                         </thead>
                         <tbody>
                         @forelse($devices as $device)
-                            @include('admin.devices.edit', ['device' => $device])
+                            @include('basic_user.devices.edit', ['device' => $device])
                             <tr>
                                 <td>{{ $device->name }}</td>
                                 <td>{{ $device->description }}</td>
@@ -51,7 +51,7 @@
                                             data-bs-toggle="modal" data-bs-target="#edit_device_{{$device->id}}_modal">
                                         Edit
                                     </button>
-                                    <a href="{{route('admin.device.free', $device->id)}}"
+                                    <a href="{{route('user.device.free', $device->id)}}"
                                        class="btn btn-danger">Free</a>
                                 </td>
                             </tr>

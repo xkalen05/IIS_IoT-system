@@ -114,4 +114,26 @@ class DeviceControllerUser extends Controller
         DB::table('devices')->where('id','=',$id)->delete();
         return redirect(route('user.devices'));
     }
+    public function reserve(Request $request)
+    {
+        //Checks if device was already reserved, by checking the lock
+        try{
+            $lock = DB::table('devices')->where('id', '=', $request->input('device_id'))->get('system_id');
+            if (is_null($lock[0]->system_id)){
+                DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
+                    'system_id' => $request->input('system_id'),
+                ]);
+            }} catch(Exception $e){
+            return redirect()->back()->witn("error", "There was an error!");
+        }
+
+        return redirect()->back()->with("success", "Device was successfully added!");
+    }
+
+    public function free(string $id)
+    {
+        DB::table('devices')->where('id','=', $id)->update(['system_id'=> null]);
+
+        return redirect()->back()->with("success", "Device was successfully removed from the system!");
+    }
 }

@@ -71,7 +71,14 @@ class SystemControllerAdmin extends Controller
     public function show(System $system)
     {
         $devices = $system->devices;
-        $devices_free = DB::table('devices')->where('system_id', '=', '')->orWhereNull('system_id')->get();
+        $user_id = Auth::id();
+
+        $devices_free = DB::table('devices')->
+        where('system_id', '=', '')->
+        orWhereNull('system_id')->
+        where('user_id','=', $user_id)->
+        get();
+
         $name = $system->name;
         return view('admin.systems.show', compact('system', 'name', 'devices', 'devices_free'));
     }

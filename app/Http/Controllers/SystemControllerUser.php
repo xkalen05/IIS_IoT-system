@@ -107,9 +107,27 @@ class SystemControllerUser extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(System $system)
     {
-        //
+        $devices = $system->devices;
+        $user_id = Auth::id();
+
+        $devices_free = DB::table('devices')->
+        where('system_id', '=', '')->
+        orWhereNull('system_id')->
+        where('user_id','=', $user_id)->
+        get();
+
+        $name = $system->name;
+        return view('basic_user.systems.show', compact('system', 'name', 'devices', 'devices_free'));
+    }
+
+    public function showShared(System $system)
+    {
+        $devices = $system->devices;
+
+        $name = $system->name;
+        return view('basic_user.systems.showShared', compact('system', 'name', 'devices'));
     }
 
     /**

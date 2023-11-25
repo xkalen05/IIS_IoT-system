@@ -1,11 +1,11 @@
 @extends('layouts.auth')
 
 @section('content')
+    <h1>{{$system->name}}</h1>
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
                 <div class="row py-4">
-                    <div class="col"></div>
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
@@ -13,28 +13,21 @@
                     <table class="table table-light">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Alias</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($systems as $system)
+                        @forelse($devices as $device)
                             <tr>
-                                <td>{{ $system->id }}</td>
-                                <td>{{ $system->name }}</td>
-                                <td>{{ $system->description }}</td>
-                                <td>{{ $system->admin->name }} {{ $system->admin->surname }}</td>
-                                <td>
-                                    <a href="{{route('user.system.showShared', $system->id) }}"
-                                       class="btn btn-primary">Show</a>
-                                </td>
+                                <td>{{ $device->name }}</td>
+                                <td>{{ $device->description }}</td>
+                                <td>{{ $device->alias }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td>No systems found!</td>
+                                <td>This system has no devices!</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -44,4 +37,3 @@
         </div>
     </div>
 @endsection
-
