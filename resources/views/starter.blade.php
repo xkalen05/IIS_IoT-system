@@ -89,27 +89,30 @@
             <div class="container">
                 <h2>Systems Overview</h2>
                 <hr>
-
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">System Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">System Admin</th>
-                        <th scope="col">Number of Devices</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($systems as $system)
+                @if($systems->isEmpty())
+                    <p>No systems found.</p>
+                @else
+                    <table class="table table-bordered">
+                        <thead>
                         <tr>
-                            <td>{{ $system->name }}</td>
-                            <td>{{ $system->description }}</td>
-{{--                            <td>{{ $system->admin->name }}</td>--}}
-{{--                            <td>{{ $system->devices->count() }}</td>--}}
+                            <th scope="col">System Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">System Admin</th>
+                            <th scope="col">Number of Devices</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($systems as $system)
+                            <tr>
+                                <td>{{ $system->name }}</td>
+                                <td>{{ $system->description }}</td>
+                                <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
+    {{--                            <td>{{ $system->devices->count() }}</td>--}}
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
             <footer class="pt-3 mt-4 text-muted border-top">
                 © 2023
