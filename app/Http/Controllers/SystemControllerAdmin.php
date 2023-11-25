@@ -23,7 +23,7 @@ class SystemControllerAdmin extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $users = User::all();
-        $userSystems = System::paginate(10);
+        $userSystems = System::paginate(1000);
         $sharingRequests = SystemSharingRequest::all();
         $hasSharingRequests = SystemSharingRequest::exists();
 
