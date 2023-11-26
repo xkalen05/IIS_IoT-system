@@ -5,7 +5,6 @@
     @foreach($info['device'] as $device)
         <h1>{{$device->name}}</h1>
     @endforeach
-    <!--<h2>{$device}}</h2>-->
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">

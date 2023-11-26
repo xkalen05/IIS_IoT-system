@@ -41,6 +41,10 @@
                                 <td>{{ $device->alias }}</td>
                                 <td>{{ $device->user_email }}</td>
                                 <td>
+                                    <button type="button" class="btn btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#edit_device_{{$device->id}}_modal">
+                                        Edit
+                                    </button>
                                     <a href="{{route('admin.device.show', ['encrypted_id' => encrypt($device->id)]) }}" class="btn btn-warning">Parameters</a>
                                     <a href="{{route('admin.device.delete', $device->id)}}"
                                        class="btn btn-danger">Delete</a>
