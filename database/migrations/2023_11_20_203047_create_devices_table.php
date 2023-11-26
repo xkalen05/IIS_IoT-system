@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('alias')->nullable();
+            $table->boolean('result')->default(0);
             $table->unsignedBigInteger('system_id')->nullable();
             $table->foreign('system_id')->references('id')->on('systems')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');

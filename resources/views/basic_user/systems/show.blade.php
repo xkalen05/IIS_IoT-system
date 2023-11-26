@@ -3,7 +3,7 @@
 @section('content')
     @include('basic_user.devices.create')
     @include('basic_user.devices.reserve')
-    <h1>{{$system->name}}</h1>
+    <h1>System: {{$system->name}}</h1>
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
@@ -37,6 +37,7 @@
                             <th scope="col">Description</th>
                             <th scope="col">Alias</th>
                             <th scope="col">Actions</th>
+                            <th scope="col">State</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,6 +57,11 @@
                                     <a href="{{route('user.device.free', $device->id)}}"
                                        class="btn btn-danger">Free</a>
                                 </td>
+                                @if($device->result === 0)
+                                    <td class="bg-danger text-center">ERROR</td>
+                                @else
+                                    <td class="bg-success text-center">OK</td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

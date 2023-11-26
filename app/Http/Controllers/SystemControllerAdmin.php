@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JetBrains\PhpStorm\NoReturn;
 use Exception;
+use App\Traits\CheckResultSystem;
 
 class SystemControllerAdmin extends Controller
 {
+    use CheckResultSystem;
+
     /**
      * Display a listing of the resource.
      */
@@ -127,6 +130,8 @@ class SystemControllerAdmin extends Controller
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
 
+        CheckResultSystemFunc($request->input('system_id'));
+
         return redirect(route('admin.systems'))->with('success', 'Changes were successfully saved');
     }
 
@@ -142,6 +147,8 @@ class SystemControllerAdmin extends Controller
         }catch (Exception $e){
             return redirect()->back()->with('error','System could not be destroyed. Already does not exist or invalid ID');
         }
+
+        CheckResultSystemFunc($id);
 
         return redirect(route('admin.systems'))->with('success', 'System was successfully deleted');
     }

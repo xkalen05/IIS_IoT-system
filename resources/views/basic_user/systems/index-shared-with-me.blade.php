@@ -20,6 +20,7 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Owner</th>
                                 <th scope="col">Actions</th>
+                                <th scope="col">State</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,6 +34,11 @@
                                     <a href="{{route('user.system.showShared', $system->id) }}"
                                        class="btn btn-primary">Show devices</a>
                                     </td>
+                                    @if($system->result === 0)
+                                        <td class="bg-danger text-center">ERROR</td>
+                                    @else
+                                        <td class="bg-success text-center">OK</td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
