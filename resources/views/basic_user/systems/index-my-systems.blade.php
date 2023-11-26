@@ -67,7 +67,7 @@
                                     <td>{{ $system->name }}</td>
                                     <td>{{ $system->description }}</td>
                                     <td>
-                                        <a href="#"
+                                        <a href="{{route('user.system.show', $system->id) }}"
                                            class="btn btn-primary">Show</a>
                                         <button
                                             type="button"

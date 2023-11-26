@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AdminUser;
 use App\Http\Middleware\BasicUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\BrokerUser;
 
 class Kernel extends HttpKernel
 {
@@ -74,5 +75,6 @@ class Kernel extends HttpKernel
 
         'adminUser' => AdminUser::class,
         'basicUser' => BasicUser::class,
+        'brokerUser'=> BrokerUser::class,
     ];
 }

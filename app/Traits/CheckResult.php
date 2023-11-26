@@ -7,6 +7,23 @@ use Illuminate\Support\Facades\DB;
 trait CheckResult
 {
     public function CheckResultFunc($param_id, $kpi_id){
+        if($kpi_id === null){
+            $kpi_id = DB::table('parameters')
+                ->where('parameters.id','=',"$param_id")
+                ->select('kpi_id as id')
+                ->get();
+
+            if($kpi_id === null){
+                DB::table('parameters')->where('id','=',"$param_id")->update([
+                    'result' => 0
+                ]);
+                return;
+            }
+
+            $kpi_id = $kpi_id[0]->id;
+        }
+
+        error_log("$kpi_id");
         $kpi = DB::table('kpis')
             ->where('id','=',"$kpi_id")
             ->select('value')

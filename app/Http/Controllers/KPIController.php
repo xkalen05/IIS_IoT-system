@@ -73,6 +73,8 @@ class KPIController extends Controller
     }
 
     public function edit(Request $request){
+
+
         $data = $request->except('_token');
         $id = $data['id'];
 

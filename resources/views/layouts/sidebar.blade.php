@@ -18,6 +18,21 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.kpis')}}">KPIs</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.broker.index')}}">Broker</a>
+        </li>
+    </ul>
+@elseif(Auth::user()->role === 'broker')
+    <ul class="nav flex-column bg-dark color-light min-vh-100 px-4 py-4 " data-bs-theme="dark">
+        {{--        <li class="nav-item">--}}
+        {{--            <a class="nav-link active" aria-current="page" href="{{route('admin.dashboard')}}">Dashboard</a>--}}
+        {{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('profile.index')}}">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('broker.index')}}">Broker</a>
+        </li>
     </ul>
 @else
     <ul class="nav flex-column bg-dark color-light min-vh-100 px-4 py-4 " data-bs-theme="dark">
