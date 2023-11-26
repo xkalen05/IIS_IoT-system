@@ -7,12 +7,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @csrf
                 @if(Auth::user()['role'] === 'admin')
                     <form method="post" action="{{ route('admin.broker.edit') }}">
                 @else
                     <form method="post" action="{{ route('broker.edit') }}">
                 @endif
+                        @csrf
                         @foreach(json_decode($param->value, true) as $value_key => $value)
                             <div class="mb-3">
                                 <label for="{{$value_key}}" class="form-label">{{$value_key}}</label>

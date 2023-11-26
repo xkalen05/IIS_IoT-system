@@ -23,9 +23,9 @@ class ParameterController extends Controller
             'device_id' => 'required',
             'type' => 'required'
         ]);
+
         $device_id = $request->input('device_id');
         $type = $request->input('type');
-        error_log("$type");
 
         $value = DB::table('types')
             ->where('id','=',"$type")
@@ -36,19 +36,16 @@ class ParameterController extends Controller
 
         foreach ($value as $elem_key => $elem){
             $num_of_elem = count($elem);
-            error_log("$num_of_elem");
             if($num_of_elem === 1){
-                foreach ($elem as $val_key => $val){
+                foreach ($elem as $val){
                     $value["$elem_key"] = $val[0];
                 }
             }else if($num_of_elem === 2){
-                foreach ($elem as $val_key => $limits){
+                foreach ($elem as $limits){
                     $from = $limits[0];
-                    $to = $limits[1];
                     break;
                 }
                 $value["$elem_key"] = $from;
-                error_log("22222");
             }
         }
 
@@ -60,7 +57,7 @@ class ParameterController extends Controller
             'value' => $value,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Parameter successfully created');
     }
     /**
      * Show the form for editing the specified resource.
