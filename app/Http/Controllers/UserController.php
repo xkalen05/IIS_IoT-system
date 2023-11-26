@@ -162,6 +162,18 @@ class UserController extends Controller
     public function destroy(string $id): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
+            $systems = DB::table('systems')
+                ->where('system_admin_id','=',"$id")
+                ->select('id')
+                ->get();
+
+            foreach ($systems as $system){
+                $sid = $system->id;
+                DB::table('systems')
+                    ->where('id','=',"$sid")
+                    ->delete();
+            }
+
             DB::table('users')
                 ->where('id', '=', $id)
                 ->delete();
