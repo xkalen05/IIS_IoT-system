@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class SystemControllerUser extends Controller
 {
@@ -22,7 +24,7 @@ class SystemControllerUser extends Controller
     {
         $users = User::all();
 
-        $userId = Auth::id();
+        $userId = Auth::user()['id'];
         $userSystems = System::where('system_admin_id', $userId)->paginate(1000);
         $sharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->paginate(1000);
         $hasSharingRequests = SystemSharingRequest::where('system_owner_id', $userId)->exists();
@@ -59,7 +61,16 @@ class SystemControllerUser extends Controller
      */
     public function create(Request $request)
     {
-        $user_id = Auth::id();  // TODO prasarna
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user_id = Auth::user()['id'];
 
         $system = System::create([
             'name' => $request->input('name'),
@@ -77,10 +88,18 @@ class SystemControllerUser extends Controller
      */
     public function share(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'system_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $system = System::find($request->input('system_id'));
 
         $system->users()->attach($request->input('user_id'));
-
 
         return redirect(route('user.systems'))->with('success', 'System was sucessfully shared');
 
@@ -113,11 +132,11 @@ class SystemControllerUser extends Controller
         $devices = $system->devices;
         $user_id = Auth::id();
 
-        $devices_free = DB::table('devices')->
-        where('system_id', '=', '')->
-        orWhereNull('system_id')->
-        where('user_id','=', $user_id)->
-        get();
+        $devices_free = DB::table('devices')
+            ->where('system_id', '=', '')
+            ->orWhereNull('system_id')
+            ->where('user_id','=', $user_id)
+            ->get();
 
         $name = $system->name;
         return view('basic_user.systems.show', compact('system', 'name', 'devices', 'devices_free'));
@@ -136,7 +155,17 @@ class SystemControllerUser extends Controller
      */
     public function edit(Request $request)
     {
-        $user_id = Auth::id();  // TODO prasarna
+        $validator = Validator::make($request->all(), [
+            'system_id' => 'required',
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $user_id = Auth::user()['id'];
 
         DB::table('systems')->where('id', '=', $request->input('system_id'))->update([
             'name' => $request->input('name'),
@@ -146,15 +175,7 @@ class SystemControllerUser extends Controller
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
 
-        return redirect(route('user.systems'))->with('success', 'Changes were succesfully saved');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return redirect(route('user.systems'))->with('success', 'Changes were successfully saved');
     }
 
     /**
@@ -162,7 +183,14 @@ class SystemControllerUser extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('systems')->where('id', '=', $id)->delete();
-        return redirect(route('user.systems'))->with('success', 'System was succesfully deleted');
+        try {
+            DB::table('systems')
+                ->where('id', '=', $id)
+                ->delete();
+        }catch (Exception $e){
+            return redirect()->back()->with('error','System could not be destroyed. Already does not exist or invalid ID');
+        }
+
+        return redirect(route('admin.systems'))->with('success', 'System was successfully deleted');
     }
 }

@@ -51,6 +51,8 @@
                                             data-bs-toggle="modal" data-bs-target="#edit_device_{{$device->id}}_modal">
                                         Edit
                                     </button>
+                                    <a href="{{route('user.device.show', ['encrypted_id' => encrypt($device->id)]) }}"
+                                       class="btn btn-warning">Parameters</a>
                                     <a href="{{route('user.device.free', $device->id)}}"
                                        class="btn btn-danger">Free</a>
                                 </td>

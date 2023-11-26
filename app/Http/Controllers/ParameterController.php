@@ -7,6 +7,7 @@ use App\Models\Parameters;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use function Laravel\Prompts\error;
 use App\Traits\CheckResult;
 
@@ -19,10 +20,14 @@ class ParameterController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'device_id' => 'required',
             'type' => 'required'
         ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $device_id = $request->input('device_id');
         $type = $request->input('type');
@@ -64,18 +69,32 @@ class ParameterController extends Controller
      */
     public function edit(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'param_id' => 'required',
+            'kpi_id' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $param_id = $request->input('param_id');
         $kpi_id = $request->input('kpi_id');
 
         $this->CheckResultFunc($param_id, $kpi_id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Parameter successfully edited');
     }
 
     public function destroy(string $id)
     {
-        error_log("param id $id");
-        DB::table('parameters')->where('id','=',$id)->delete();
-        return redirect()->back();
+        try {
+            DB::table('parameters')
+                ->where('id','=',$id)
+                ->delete();
+        }catch (Exception $e){
+            return redirect()->back()->with('error','Parameter could not be destroyed. Already does not exist or invalid ID');
+        }
+        return redirect()->back()->with('success','Parameter successfully deleted');
     }
 }

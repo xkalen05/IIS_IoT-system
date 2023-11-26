@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class DeviceController extends Controller
 {
@@ -34,6 +35,16 @@ class DeviceController extends Controller
      */
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255|min:3',
+            'description' => 'required|max:255|min:3',
+            'alias' => 'required|max:255|min:3',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $user_id = Auth::user()['id'];
 
         DB::table('devices')->insert([
@@ -43,7 +54,7 @@ class DeviceController extends Controller
             'user_id' => $user_id,
         ]);
 
-        return redirect(route('admin.devices'));
+        return redirect()->back()->with('success','Device was successfully created');
     }
 
     /**
@@ -53,7 +64,6 @@ class DeviceController extends Controller
     {
         try{
             $device_id = Crypt::decrypt($encrypted_id);
-            error_log("$device_id");
             $device = DB::table('devices')
                 ->join('users','devices.user_id','=','users.id')
                 ->where('devices.id','=', $device_id)
@@ -96,21 +106,26 @@ class DeviceController extends Controller
      */
     public function edit(Request $request)
     {
-        DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'alias' => $request->input('alias')
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255|min:3',
+            'description' => 'required|max:255|min:3',
+            'alias' => 'required|max:255|min:3',
+            'device_id' => 'required'
         ]);
 
-        return redirect()->back();
-    }
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        DB::table('devices')
+            ->where('id', '=', $request->input('device_id'))
+            ->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'alias' => $request->input('alias')
+            ]);
+
+        return redirect()->back()->with('success','Device successfully edited');
     }
 
     /**
@@ -118,20 +133,41 @@ class DeviceController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('devices')->where('id','=',$id)->delete();
-        return redirect()->back();
+        try{
+            DB::table('devices')
+                ->where('id','=',$id)
+                ->delete();
+        }catch (Exception $e){
+            return redirect()->back()->with('error','Device could not be deleted, already does not exist or invalid ID.');
+        }
+
+        return redirect()->back()->with('success','Device was successfully deleted');
     }
 
     public function reserve(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'device_id' => 'required',
+            'system_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         //Checks if device was already reserved, by checking the lock
         try{
-        $lock = DB::table('devices')->where('id', '=', $request->input('device_id'))->get('system_id');
-        if (is_null($lock[0]->system_id)){
-            DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
-                'system_id' => $request->input('system_id'),
-            ]);
-        }} catch(Exception $e){
+            $lock = DB::table('devices')
+                ->where('id', '=', $request->input('device_id'))
+                ->get('system_id');
+            if (is_null($lock[0]->system_id)){
+                DB::table('devices')
+                    ->where('id', '=', $request->input('device_id'))
+                    ->update([
+                        'system_id' => $request->input('system_id'),
+                ]);
+            }
+        } catch(Exception $e){
             return redirect()->back()->witn("error", "There was an error!");
         }
 
@@ -145,6 +181,3 @@ class DeviceController extends Controller
         return redirect()->back()->with("success", "Device was successfully removed from the system!");
     }
 }
-/** TODO:
- * - admin is default owner
- * */

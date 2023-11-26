@@ -13,6 +13,9 @@ class BrokerController extends Controller
     use CheckResult;
     use CheckRange;
 
+    /**
+     * Controller showing all available parameters to change
+     */
     public function index(){
         $parameters = DB::table('parameters')
             ->join('devices','devices.id','=','parameters.device_id')
@@ -25,7 +28,13 @@ class BrokerController extends Controller
         return view('broker.index')->with(['parameters' => $parameters]);
     }
 
+    /**
+     * Function provides change values of parameter specified by parameter ID from request
+     */
     public function edit(Request $request){
+        $request->validate([
+            'param_id' => 'required'
+        ]);
         $variables = $request->except('_token');
         $param_id = $variables['param_id'];
         unset($variables['param_id']);
@@ -52,8 +61,6 @@ class BrokerController extends Controller
         }
 
         $param_value = json_encode($param_value);
-
-        error_log("$param_value");
 
         DB::table('parameters')
             ->where('id','=',"$param_id")

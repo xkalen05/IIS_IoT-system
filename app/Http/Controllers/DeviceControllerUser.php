@@ -29,23 +29,6 @@ class DeviceControllerUser extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        $user_id = Auth::user()['id'];
-
-        DB::table('devices')->insert([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'alias' => $request->input('alias'),
-            'user_id' => $user_id,
-        ]);
-
-        return redirect(route('user.devices'));
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show($encrypted_id)
@@ -54,7 +37,6 @@ class DeviceControllerUser extends Controller
             $user_id = Auth::user()['id'];
 
             $device_id = Crypt::decrypt($encrypted_id);
-            error_log("$device_id");
             $device = DB::table('devices')->where('id','=', $device_id)->get();
 
 
@@ -88,52 +70,5 @@ class DeviceControllerUser extends Controller
         catch(Exception $e){
             return redirect(route('user.devices'));
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
-        DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'alias' => $request->input('alias'),
-            'type' => $request->input('type'),
-        ]);
-
-        return redirect(route('admin.devices'));
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        DB::table('devices')->where('id','=',$id)->delete();
-        return redirect(route('user.devices'));
-    }
-    public function reserve(Request $request)
-    {
-        //Checks if device was already reserved, by checking the lock
-        try{
-            $lock = DB::table('devices')->where('id', '=', $request->input('device_id'))->get('system_id');
-            if (is_null($lock[0]->system_id)){
-                DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
-                    'system_id' => $request->input('system_id'),
-                ]);
-            }} catch(Exception $e){
-            return redirect()->back()->witn("error", "There was an error!");
-        }
-
-        return redirect()->back()->with("success", "Device was successfully added!");
-    }
-
-    public function free(string $id)
-    {
-        DB::table('devices')->where('id','=', $id)->update(['system_id'=> null]);
-
-        return redirect()->back()->with("success", "Device was successfully removed from the system!");
     }
 }

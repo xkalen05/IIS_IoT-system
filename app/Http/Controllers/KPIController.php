@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CheckResult;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class KPIController extends Controller
 {
@@ -38,13 +40,13 @@ class KPIController extends Controller
 
     public function create(Request $request)
     {
-        $validation = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|min:3',
-            'type' => 'required'
+            'type' => 'required',
         ]);
 
-        if(!$validation){
-            return redirect()->back()->with('error','Validation error');
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $user_id = Auth::user()['id'];
@@ -87,14 +89,32 @@ class KPIController extends Controller
 
     public function destroy(string $id){
 
-        DB::table('kpis')->where('id','=',$id)->delete();
+        try {
+            DB::table('kpis')
+                ->where('id','=',$id)
+                ->delete();
+        }catch (Exception $e){
+            return redirect()->back()->with('error','KPI is already deleted or ID is invalid');
+        }
 
         return redirect()->back()->with('success','KPI successfully deleted');
     }
 
     public function edit(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'name' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $data = $request->except('_token');
         $id = $data['id'];
+        unset($data['id']);
+        $kpi_name = $data['name'];
+        unset($data['name']);
 
         $kpi = DB::table('kpis')
             ->where('id','=',"$id")
@@ -137,8 +157,11 @@ class KPIController extends Controller
 
         $value = json_encode($value);
 
-        DB::table('kpis')->where('id','=',"$id")->update([
-            'value' => $value,
+        DB::table('kpis')
+            ->where('id','=',"$id")
+            ->update([
+                'value' => $value,
+                'name' => $kpi_name
         ]);
 
         $param_table = DB::table('kpis')
@@ -151,6 +174,6 @@ class KPIController extends Controller
             $this->CheckResultFunc($res->param_id, $res->kpi_id);
         }
 
-        return redirect()->back()->with('success','KPI range successfully changed');
+        return redirect()->back()->with('success','KPI successfully changed');
     }
 }
