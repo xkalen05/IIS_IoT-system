@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             TypeWeightKg::class,
             //UserAdmin::class,
             //UserUser::class,
+            //UserBroker::class,
         ]);
     }
 }

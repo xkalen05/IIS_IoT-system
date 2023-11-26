@@ -14,6 +14,7 @@ use App\Http\Controllers\KPIController;
 use App\Http\Controllers\DeviceControllerUser;
 use App\Http\Controllers\KPIControllerUser;
 use App\Http\Controllers\ParameterControllerUser;
+use App\Http\Controllers\BrokerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,9 @@ Auth::routes();
 
 Route::get('/home', function (){
     return match (Auth::user()->role){
-      'admin' => redirect(\route('admin.systems')),
-      'basic_user' => redirect(route('user.systems')),
+        'admin' => redirect(\route('admin.systems')),
+        'basic_user' => redirect(route('user.systems')),
+        'broker' => redirect(\route('broker.index')),
     };
 })->middleware('auth')->name('home');
 
@@ -73,6 +75,9 @@ Route::group(['middleware' => 'adminUser'], function (){
     Route::post('/admin/kpis/create', [KPIController::class, 'create'])->name('admin.kpis.create');
     Route::post('/admin/kpis/edit/', [KPIController::class, 'edit'])->name('admin.kpis.edit');
     Route::get('/admin/kpis/delete/{id}', [KPIController::class, 'destroy'])->name('admin.kpis.delete');
+
+    Route::get('/admin/broker',[BrokerController::class, 'index'])->name('admin.broker.index');
+    Route::post('/admin/broker/edit/', [BrokerController::class, 'edit'])->name('admin.broker.edit');
 });
 
 Route::group(['middleware' => 'basicUser'], function (){
@@ -108,6 +113,11 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/kpis/delete/{id}', [KPIControllerUser::class, 'destroy'])->name('user.kpis.delete');
 });
 
+Route::group(['middleware' => 'brokerUser'], function (){
+    Route::get('/broker',[BrokerController::class, 'index'])->name('broker.index');
+    Route::post('/broker/edit/', [BrokerController::class, 'edit'])->name('broker.edit');
+});
+
 Route::group(['middleware' => 'sharedGroup'], function () {
     Route::get('/profile', [UserController::class, 'indexProfile'])->name('profile.index');
     Route::post('/profile/edit', [UserController::class, 'editUserByUser'])->name('profile.edit');
@@ -116,5 +126,6 @@ Route::group(['middleware' => 'sharedGroup'], function () {
 
     Route::post('/sharing-requests/accept', [RequestsController::class, 'acceptShareRequest'])->name('sharing.request.accept');
     Route::get('/sharing-requests/deny/{id}', [RequestsController::class, 'denyShareRequest'])->name('sharing.request.deny');
-
 });
+
+//Route::get('/broker')
