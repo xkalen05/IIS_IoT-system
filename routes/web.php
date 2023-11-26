@@ -103,9 +103,9 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::post('/user/devices/reserve/', [DeviceControllerUser::class, 'reserve'])->name('user.device.reserve');
     Route::get('/user/devices/free/{id}', [DeviceControllerUser::class, 'free'])->name('user.device.free');
 
-    Route::post('/user/parameters/create', [ParameterControllerUser::class, 'create'])->name('user.parameters.create');
-    Route::post('/user/parameters/edit', [ParameterControllerUser::class, 'edit'])->name('user.parameters.edit');
-    Route::get('/user/parameters/delete/{id}', [ParameterControllerUser::class, 'destroy'])->name('user.parameters.delete');
+    Route::post('/user/parameters/create', [ParameterController::class, 'create'])->name('user.parameters.create');
+    Route::post('/user/parameters/edit', [ParameterController::class, 'edit'])->name('user.parameters.edit');
+    Route::get('/user/parameters/delete/{id}', [ParameterController::class, 'destroy'])->name('user.parameters.delete');
 
     Route::get('/user/kpis', [KPIController::class, 'index'])->name('user.kpis');
     Route::post('/user/kpis/create', [KPIController::class, 'create'])->name('user.kpis.create');
