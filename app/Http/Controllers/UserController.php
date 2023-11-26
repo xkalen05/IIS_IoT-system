@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use App\Traits\CheckEmail;
 
 class UserController extends Controller
 {
+    use CheckEmail;
+
     /**
      * Display a listing of the resource.
      */
@@ -53,6 +56,10 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
+        if(!$this->CheckEmailFunc($request->input('email'))){
+            return redirect()->back()->with('error','email is in wrong format')->withInput();
+        }
+
         User::create([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
@@ -81,6 +88,10 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
+        if(!$this->CheckEmailFunc($request->input('email'))){
+            return redirect()->back()->with('error','email is in wrong format')->withInput();
+        }
+
         DB::table('users')->where('id', '=', $request->input('user_id'))->update([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
@@ -102,6 +113,10 @@ class UserController extends Controller
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator);
+        }
+
+        if(!$this->CheckEmailFunc($request->input('email'))){
+            return redirect()->back()->with('error','email is in wrong format')->withInput();
         }
 
         DB::table('users')->where('id', '=', $request->input('user_id'))->update([
@@ -146,7 +161,6 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        dd($request);
         $newPassword = $request->input('password');
 
         Auth::user()->update([
