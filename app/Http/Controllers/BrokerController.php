@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CheckResult;
+use App\Traits\CheckRange;
 
 class BrokerController extends Controller
 {
     use CheckResult;
+    use CheckRange;
 
     public function index(){
         $parameters = DB::table('parameters')
@@ -27,6 +29,10 @@ class BrokerController extends Controller
         $variables = $request->except('_token');
         $param_id = $variables['param_id'];
         unset($variables['param_id']);
+
+        $result = $this->CheckRangeFunc($variables,$param_id);
+        $variables = $result[0];
+        $error_message = $result[1];
 
         $param_value = DB::table('parameters')
             ->where('id','=',"$param_id")
@@ -56,10 +62,16 @@ class BrokerController extends Controller
         ]);
 
         $this->CheckResultFunc($param_id,null);
-
-        if(Auth::user()['role'] === 'admin'){
-            return redirect(route('admin.broker.index'));
+        if($error_message !== "") {
+            if (Auth::user()['role'] === 'admin') {
+                return redirect(route('admin.broker.index'))->with('error',"$error_message");
+            }
+            return redirect()->back()->with('error',"$error_message");
+        }else {
+            if (Auth::user()['role'] === 'admin') {
+                return redirect(route('admin.broker.index'))->with('success','Value successfully changed');
+            }
+            return redirect()->back()->with('success','Value successfully changed');
         }
-        return redirect()->back();
     }
 }

@@ -73,11 +73,11 @@ Route::group(['middleware' => 'adminUser'], function (){
 
     Route::get('/admin/kpis', [KPIController::class, 'index'])->name('admin.kpis');
     Route::post('/admin/kpis/create', [KPIController::class, 'create'])->name('admin.kpis.create');
-    Route::post('/admin/kpis/edit/', [KPIController::class, 'edit'])->name('admin.kpis.edit');
+    Route::post('/admin/kpis/edit', [KPIController::class, 'edit'])->name('admin.kpis.edit');
     Route::get('/admin/kpis/delete/{id}', [KPIController::class, 'destroy'])->name('admin.kpis.delete');
 
     Route::get('/admin/broker',[BrokerController::class, 'index'])->name('admin.broker.index');
-    Route::post('/admin/broker/edit/', [BrokerController::class, 'edit'])->name('admin.broker.edit');
+    Route::post('/admin/broker/edit', [BrokerController::class, 'edit'])->name('admin.broker.edit');
 });
 
 Route::group(['middleware' => 'basicUser'], function (){
@@ -107,10 +107,10 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::post('/user/parameters/edit', [ParameterControllerUser::class, 'edit'])->name('user.parameters.edit');
     Route::get('/user/parameters/delete/{id}', [ParameterControllerUser::class, 'destroy'])->name('user.parameters.delete');
 
-    Route::get('/user/kpis', [KPIControllerUser::class, 'index'])->name('user.kpis');
-    Route::post('/user/kpis/create', [KPIControllerUser::class, 'create'])->name('user.kpis.create');
-    Route::post('/user/kpis/edit/', [KPIControllerUser::class, 'edit'])->name('user.kpis.edit');
-    Route::get('/user/kpis/delete/{id}', [KPIControllerUser::class, 'destroy'])->name('user.kpis.delete');
+    Route::get('/user/kpis', [KPIController::class, 'index'])->name('user.kpis');
+    Route::post('/user/kpis/create', [KPIController::class, 'create'])->name('user.kpis.create');
+    Route::post('/user/kpis/edit/', [KPIController::class, 'edit'])->name('user.kpis.edit');
+    Route::get('/user/kpis/delete/{id}', [KPIController::class, 'destroy'])->name('user.kpis.delete');
 });
 
 Route::group(['middleware' => 'brokerUser'], function (){
