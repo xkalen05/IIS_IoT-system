@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use JetBrains\PhpStorm\NoReturn;
+use Exception;
 
 class SystemControllerAdmin extends Controller
 {
@@ -36,7 +38,16 @@ class SystemControllerAdmin extends Controller
      */
     public function create(Request $request)
     {
-        $user_id = Auth::id();  // TODO prasarna
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user_id = Auth::user()['id'];
 
         $system = System::create([
             'name' => $request->input('name'),
@@ -46,7 +57,7 @@ class SystemControllerAdmin extends Controller
 
         $system->users()->attach($user_id);
 
-        return redirect(route('admin.systems'))->with('success', 'System was sucessfully created');
+        return redirect(route('admin.systems'))->with('success', 'System was successfully created');
     }
 
     /**
@@ -54,15 +65,20 @@ class SystemControllerAdmin extends Controller
      */
     public function share(Request $request)
     {
-        //dd($request);
-        // TODO pridavaji se i systemy ktere uy jsou pridane
+        $validator = Validator::make($request->all(), [
+            'system_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $system = System::find($request->input('system_id'));
 
         $system->users()->attach($request->input('user_id'));
 
-
-        return redirect(route('admin.systems'))->with('success', 'System was sucessfully shared with user');
-
+        return redirect(route('admin.systems'))->with('success', 'System was successfully shared with user');
     }
 
 
@@ -72,13 +88,13 @@ class SystemControllerAdmin extends Controller
     public function show(System $system)
     {
         $devices = $system->devices;
-        $user_id = Auth::id();
+        $user_id = Auth::user()['id'];
 
-        $devices_free = DB::table('devices')->
-        where('system_id', '=', '')->
-        orWhereNull('system_id')->
-        where('user_id','=', $user_id)->
-        get();
+        $devices_free = DB::table('devices')
+            ->where('system_id', '=', '')
+            ->orWhereNull('system_id')
+            ->where('user_id','=', $user_id)
+            ->get();
 
         $name = $system->name;
         return view('admin.systems.show', compact('system', 'name', 'devices', 'devices_free'));
@@ -89,25 +105,29 @@ class SystemControllerAdmin extends Controller
      */
     public function edit(Request $request)
     {
-        $user_id = Auth::id();  // TODO prasarna
-
-        DB::table('systems')->where('id', '=', $request->input('system_id'))->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
+        $validator = Validator::make($request->all(), [
+            'system_id' => 'required',
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
         ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $user_id = Auth::user()['id'];
+
+        DB::table('systems')
+            ->where('id', '=', $request->input('system_id'))
+            ->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+            ]);
 
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
 
-        return redirect(route('admin.systems'))->with('success', 'Changes were succesfully saved');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return redirect(route('admin.systems'))->with('success', 'Changes were successfully saved');
     }
 
     /**
@@ -115,8 +135,15 @@ class SystemControllerAdmin extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('systems')->where('id', '=', $id)->delete();
-        return redirect(route('admin.systems'))->with('success', 'System was succesfully deleted');
+        try {
+            DB::table('systems')
+                ->where('id', '=', $id)
+                ->delete();
+        }catch (Exception $e){
+            return redirect()->back()->with('error','System could not be destroyed. Already does not exist or invalid ID');
+        }
+
+        return redirect(route('admin.systems'))->with('success', 'System was successfully deleted');
     }
 
 }
