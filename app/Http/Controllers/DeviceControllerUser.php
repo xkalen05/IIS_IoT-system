@@ -22,7 +22,7 @@ class DeviceControllerUser extends Controller
 
         $devices = DB::table('devices')
             ->where('user_id','=',"$user_id")
-            ->paginate(10);
+            ->get();
 
         return view('basic_user.devices.index')->with(['devices' => $devices]);
 

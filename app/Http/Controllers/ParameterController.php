@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use function Laravel\Prompts\error;
 use App\Traits\CheckResult;
+use function Laravel\Prompts\select;
 
 class ParameterController extends Controller
 {
@@ -62,6 +63,15 @@ class ParameterController extends Controller
             'value' => $value,
         ]);
 
+        $param_id = DB::table('parameters')
+            ->where('device_id','=',"$device_id")
+            ->select('id')
+            ->get();
+
+        $param_id = $param_id[0]->id;
+
+        $this->CheckResultFunc($param_id,null);
+
         return redirect()->back()->with('success','Parameter successfully created');
     }
     /**
@@ -95,6 +105,9 @@ class ParameterController extends Controller
         }catch (Exception $e){
             return redirect()->back()->with('error','Parameter could not be destroyed. Already does not exist or invalid ID');
         }
+
+        $this->CheckResultDeviceSystem($id);
+
         return redirect()->back()->with('success','Parameter successfully deleted');
     }
 }

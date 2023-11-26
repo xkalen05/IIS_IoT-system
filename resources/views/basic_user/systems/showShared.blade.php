@@ -16,6 +16,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Alias</th>
+                            <th scope="col">State</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,6 +25,11 @@
                                 <td>{{ $device->name }}</td>
                                 <td>{{ $device->description }}</td>
                                 <td>{{ $device->alias }}</td>
+                                @if($device->result === 0)
+                                    <td class="bg-danger text-center">ERROR</td>
+                                @else
+                                    <td class="bg-success text-center">OK</td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

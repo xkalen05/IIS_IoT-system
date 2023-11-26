@@ -3,26 +3,40 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
+use App\Traits\CheckResultDevice;
 
 trait CheckResult
 {
+    use CheckResultDevice;
     public function CheckResultFunc($param_id, $kpi_id){
         if($kpi_id === null){
             $kpi_id = DB::table('parameters')
                 ->where('parameters.id','=',"$param_id")
-                ->select('kpi_id as id')
+                ->select('kpi_id')
                 ->get();
 
-            if($kpi_id === null){
-                DB::table('parameters')->where('id','=',"$param_id")->update([
-                    'result' => 0
-                ]);
+
+            if($kpi_id[0]->kpi_id === null){
+                DB::table('parameters')
+                    ->where('id','=',"$param_id")
+                    ->update([
+                        'result' => 0
+                    ]);
+
+                $device_id = DB::table('parameters')
+                    ->where('id','=',"$param_id")
+                    ->select('device_id')
+                    ->get();
+
+                $device_id = $device_id[0]->device_id;
+                $this->CheckResultDeviceFunc($device_id);
                 return;
             }
 
-            $kpi_id = $kpi_id[0]->id;
+            $kpi_id = $kpi_id[0]->kpi_id;
         }
 
+        /* Check for change in parameters result */
         error_log("$kpi_id");
         $kpi = DB::table('kpis')
             ->where('id','=',"$kpi_id")
@@ -87,5 +101,14 @@ trait CheckResult
             'kpi_id' => $kpi_id,
             'result' => $result
         ]);
+
+        $device_id = DB::table('parameters')
+            ->where('id','=',"$param_id")
+            ->select('device_id')
+            ->get();
+
+        $device_id = $device_id[0]->device_id;
+
+        $this->CheckResultDeviceFunc($device_id);
     }
 }

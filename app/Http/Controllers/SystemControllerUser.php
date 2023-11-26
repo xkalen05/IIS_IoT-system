@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use App\Traits\CheckResultSystem;
 
 class SystemControllerUser extends Controller
 {
+    use CheckResultSystem;
+
     /**
      * Display a listing of the resource.
      */
@@ -174,6 +177,8 @@ class SystemControllerUser extends Controller
 
         $system = System::find($request->input('system_id'));
         $system->users()->sync([$user_id]);
+
+        $this->CheckResultSystemFunc($request->input('system_id'));
 
         return redirect(route('user.systems'))->with('success', 'Changes were successfully saved');
     }
