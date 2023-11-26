@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KPIController;
 use App\Http\Controllers\DeviceControllerUser;
-use App\Http\Controllers\KPIControllerUser;
-use App\Http\Controllers\ParameterControllerUser;
 use App\Http\Controllers\BrokerController;
 
 /*
@@ -96,12 +94,12 @@ Route::group(['middleware' => 'basicUser'], function (){
     Route::get('/user/systems/shared/{system}', [SystemControllerUser::class, 'showShared'])->name('user.system.showShared');
 
     Route::get('/user/devices', [DeviceControllerUser::class, 'index'])->name('user.devices');
-    Route::post('/user/devices/create', [DeviceControllerUser::class, 'create'])->name('user.device.create');
+    Route::post('/user/devices/create', [DeviceController::class, 'create'])->name('user.device.create');
     Route::get('/user/devices/show/{encrypted_id}', [DeviceControllerUser::class, 'show'])->name('user.device.show');
-    Route::post('/user/devices/edit', [DeviceControllerUser::class, 'edit'])->name('user.device.edit');
-    Route::get('/user/devices/delete/{id}', [DeviceControllerUser::class, 'destroy'])->name('user.device.delete');
-    Route::post('/user/devices/reserve/', [DeviceControllerUser::class, 'reserve'])->name('user.device.reserve');
-    Route::get('/user/devices/free/{id}', [DeviceControllerUser::class, 'free'])->name('user.device.free');
+    Route::post('/user/devices/edit', [DeviceController::class, 'edit'])->name('user.device.edit');
+    Route::get('/user/devices/delete/{id}', [DeviceController::class, 'destroy'])->name('user.device.delete');
+    Route::post('/user/devices/reserve/', [DeviceController::class, 'reserve'])->name('user.device.reserve');
+    Route::get('/user/devices/free/{id}', [DeviceController::class, 'free'])->name('user.device.free');
 
     Route::post('/user/parameters/create', [ParameterController::class, 'create'])->name('user.parameters.create');
     Route::post('/user/parameters/edit', [ParameterController::class, 'edit'])->name('user.parameters.edit');
@@ -127,5 +125,3 @@ Route::group(['middleware' => 'sharedGroup'], function () {
     Route::post('/sharing-requests/accept', [RequestsController::class, 'acceptShareRequest'])->name('sharing.request.accept');
     Route::get('/sharing-requests/deny/{id}', [RequestsController::class, 'denyShareRequest'])->name('sharing.request.deny');
 });
-
-//Route::get('/broker')

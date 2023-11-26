@@ -43,7 +43,7 @@ class DeviceController extends Controller
             'user_id' => $user_id,
         ]);
 
-        return redirect(route('admin.devices'));
+        return redirect()->back()->with('success','Device was successfully created');
     }
 
     /**
@@ -96,21 +96,15 @@ class DeviceController extends Controller
      */
     public function edit(Request $request)
     {
-        DB::table('devices')->where('id', '=', $request->input('device_id'))->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'alias' => $request->input('alias')
-        ]);
+        DB::table('devices')
+            ->where('id', '=', $request->input('device_id'))
+            ->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'alias' => $request->input('alias')
+            ]);
 
-        return redirect()->back();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return redirect()->back()->with('success','Device successfully edited');
     }
 
     /**
@@ -119,7 +113,7 @@ class DeviceController extends Controller
     public function destroy(string $id)
     {
         DB::table('devices')->where('id','=',$id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Device was successfully deleted');
     }
 
     public function reserve(Request $request)
