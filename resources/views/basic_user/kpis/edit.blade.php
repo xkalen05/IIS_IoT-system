@@ -11,8 +11,12 @@
                 <form method="post" action="{{ route('user.kpis.edit') }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $kpi->id }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" value="{{$kpi->name}}" placeholder="name string value" class="form-control" id="name">
+                    </div>
                     @forelse(json_decode($kpi->value,true) as $rec_key => $record)
-                        <label>{{$rec_key}}:</label>
+                        <h4>{{$rec_key}}:</h4>
                         @foreach($record as $key => $val)
                             <div class="mb-3">
                                 <label for="{{$key}}" class="form-label">{{$key}}</label>
@@ -21,13 +25,7 @@
                             </div>
                         @endforeach
                     @empty
-                        <div class="mb-3">
-                            <label for="surname" class="form-label">Description</label>
-                            <input type="text" value="None" name="description" placeholder="description"
-                                   class="form-control" id="description">
-                        </div>
                     @endforelse
-
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

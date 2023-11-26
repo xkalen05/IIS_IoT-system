@@ -11,7 +11,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" placeholder="name string value" class="form-control" id="name">
+                        <input type="text" name="name" value="{{old('name')}}" placeholder="name string value" class="form-control" id="name">
                     </div>
                     <label for="type">Type:</label><br>
                     <select name="type" id="type">
