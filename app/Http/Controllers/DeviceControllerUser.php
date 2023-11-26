@@ -37,7 +37,6 @@ class DeviceControllerUser extends Controller
             $user_id = Auth::user()['id'];
 
             $device_id = Crypt::decrypt($encrypted_id);
-            error_log("$device_id");
             $device = DB::table('devices')->where('id','=', $device_id)->get();
 
 

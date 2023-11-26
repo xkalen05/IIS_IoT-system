@@ -11,15 +11,15 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" placeholder="name" class="form-control" id="name">
+                        <input type="text" value="{{old('name')}}" name="name" placeholder="name" class="form-control" id="name">
                     </div>
                     <div class="mb-3">
                         <label for="alias" class="form-label">Alias</label>
-                        <input type="text" name="alias" placeholder="alias" class="form-control" id="alias">
+                        <input type="text" value="{{old('alias')}}" name="alias" placeholder="alias" class="form-control" id="alias">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <input type="text" placeholder="description" class="form-control" id="description" name="description">
+                        <input type="text" value="{{old('description')}}" placeholder="description" class="form-control" id="description" name="description">
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
