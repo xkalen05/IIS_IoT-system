@@ -36,6 +36,7 @@
                         @forelse($info['parameters'] as $param)
                             @include('admin.parameters.edit', ['param' => $param])
                             @include('admin.parameters.show', ['param' => $param])
+                            @include('admin.parameters.show_kpi', ['param' => $param])
                             <tr>
                                 <td>{{ $param->id }}</td>
                                 <td>{{ $param->name }}</td>
@@ -56,6 +57,14 @@
                                         data-bs-target="#show_parameter_{{$param->id}}_modal"
                                     >
                                         Show values
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#show_kpi_parameter_{{$param->id}}_modal"
+                                    >
+                                        Show KPI rules
                                     </button>
                                     <a href="{{route('admin.parameters.delete', $param->id)}}"
                                        class="btn btn-danger">Delete</a>
