@@ -44,7 +44,7 @@ class DeviceControllerUser extends Controller
                 ->join('types', 'parameters.type_id', '=', 'types.id')
                 ->leftJoin('kpis', 'parameters.kpi_id','=','kpis.id')
                 ->where('device_id','=', $device_id)
-                ->select('parameters.id', 'parameters.result', 'types.id as tid', 'types.name', 'kpis.name as kpi_name')
+                ->select('parameters.id', 'parameters.value','parameters.result', 'types.id as tid', 'types.name', 'kpis.name as kpi_name')
                 ->get()
                 ->sortBy('id');
 
