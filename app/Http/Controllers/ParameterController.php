@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use function Laravel\Prompts\error;
+use App\Traits\CheckResultDevice;
 use App\Traits\CheckResult;
 use function Laravel\Prompts\select;
 
 class ParameterController extends Controller
 {
+    use CheckResultDevice;
     use CheckResult;
 
     /**
@@ -99,6 +101,13 @@ class ParameterController extends Controller
     public function destroy(string $id)
     {
         try {
+            $device_id = DB::table('parameters')
+                ->where('id','=',"$id")
+                ->select('device_id')
+                ->get();
+
+            $device_id = $device_id[0]->device_id;
+
             DB::table('parameters')
                 ->where('id','=',$id)
                 ->delete();
@@ -106,7 +115,7 @@ class ParameterController extends Controller
             return redirect()->back()->with('error','Parameter could not be destroyed. Already does not exist or invalid ID');
         }
 
-        $this->CheckResultDeviceSystem($id);
+        $this->CheckResultDeviceFunc($device_id);
 
         return redirect()->back()->with('success','Parameter successfully deleted');
     }
