@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    <h1>{{$system->name}}</h1>
+    <h1>System: {{$system->name}}</h1>
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">

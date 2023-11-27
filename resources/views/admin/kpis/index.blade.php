@@ -4,6 +4,7 @@
     @include('admin.kpis.create')
 
     <div class="container px-2">
+        <h2>KPIs</h2>
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
                 <div class="row py-4">
