@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\CheckResultSystem;
 
 class DeviceController extends Controller
 {
+    use CheckResultSystem;
+
     /**
      * Display a listing of the resource.
      */
@@ -168,8 +171,10 @@ class DeviceController extends Controller
                 ]);
             }
         } catch(Exception $e){
-            return redirect()->back()->witn("error", "There was an error!");
+            return redirect()->back()->with("error", "There was an error!");
         }
+
+        $this->CheckResultSystemFunc($request->input('system_id'));
 
         return redirect()->back()->with("success", "Device was successfully added!");
     }
