@@ -40,7 +40,7 @@
 
 
                     <button type="submit" class="btn btn-primary">Save</button>
-{{--                </form>--}}
+                </form>
 {{--                <h1 class="modal-title fs-5 mt-2">Edit password</h1>--}}
 {{--                <form method="post" action="{{ route('admin.user.password.edit') }}">--}}
 {{--                    @csrf--}}
