@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
             TypeThermometer::class,
             TypeUsagePercentage::class,
             TypeWeightKg::class,
-            //UserAdmin::class,
-            //UserUser::class,
-            //UserBroker::class,
+            UserAdmin::class,
+            UserUser::class,
+            UserBroker::class,
         ]);
     }
 }
