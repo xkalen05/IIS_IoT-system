@@ -98,7 +98,6 @@
                             <th scope="col">System Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">System Admin</th>
-                            <th scope="col">Number of Devices</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,7 +106,6 @@
                                 <td>{{ $system->name }}</td>
                                 <td>{{ $system->description }}</td>
                                 <td>{{ $system->admin->name }} {{ $system->admin->surname }} - {{ $system->admin->email }}</td>
-    {{--                            <td>{{ $system->devices->count() }}</td>--}}
                             </tr>
                         @endforeach
                         </tbody>
