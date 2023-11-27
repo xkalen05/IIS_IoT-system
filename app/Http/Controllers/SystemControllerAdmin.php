@@ -43,7 +43,7 @@ class SystemControllerAdmin extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
+            'description' => 'max:255',
         ]);
 
         if($validator->fails()){
@@ -111,7 +111,7 @@ class SystemControllerAdmin extends Controller
         $validator = Validator::make($request->all(), [
             'system_id' => 'required',
             'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
+            'description' => 'max:255',
         ]);
 
         if($validator->fails()){

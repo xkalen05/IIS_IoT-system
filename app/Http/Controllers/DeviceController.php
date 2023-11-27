@@ -37,8 +37,8 @@ class DeviceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|min:3',
-            'description' => 'required|max:255|min:3',
-            'alias' => 'required|max:255|min:3',
+            'description' => 'max:255',
+            'alias' => 'max:255',
         ]);
 
         if($validator->fails()){
@@ -108,8 +108,8 @@ class DeviceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|min:3',
-            'description' => 'required|max:255|min:3',
-            'alias' => 'required|max:255|min:3',
+            'description' => 'max:255',
+            'alias' => 'max:255',
             'device_id' => 'required'
         ]);
 

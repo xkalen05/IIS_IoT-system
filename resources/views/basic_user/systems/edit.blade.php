@@ -12,14 +12,17 @@
                     @csrf
                     <input type="hidden" name="system_id" value="{{ $system->id }}">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Name*</label>
                         <input type="text" value="{{$system->name}}" name="name" placeholder="name" class="form-control"
                                id="name">
                     </div>
                     <div class="mb-3">
-                        <label for="surname" class="form-label">Description</label>
+                        <label for="description" class="form-label">Description</label>
                         <input type="text" value="{{$system->description}}" name="description" placeholder="description"
                                class="form-control" id="description">
+                    </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

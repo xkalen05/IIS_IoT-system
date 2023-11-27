@@ -66,7 +66,7 @@ class SystemControllerUser extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
+            'description' => 'max:255',
         ]);
 
         if($validator->fails()){
@@ -83,7 +83,7 @@ class SystemControllerUser extends Controller
 
         $system->users()->attach($user_id);
 
-        return redirect(route('user.systems'))->with('success', 'System was sucessfully created');
+        return redirect(route('user.systems'))->with('success', 'System was successfully created');
     }
 
     /**
@@ -104,7 +104,7 @@ class SystemControllerUser extends Controller
 
         $system->users()->attach($request->input('user_id'));
 
-        return redirect(route('user.systems'))->with('success', 'System was sucessfully shared');
+        return redirect(route('user.systems'))->with('success', 'System was successfully shared');
 
     }
 
@@ -161,7 +161,7 @@ class SystemControllerUser extends Controller
         $validator = Validator::make($request->all(), [
             'system_id' => 'required',
             'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
+            'description' => 'max:255',
         ]);
 
         if($validator->fails()){

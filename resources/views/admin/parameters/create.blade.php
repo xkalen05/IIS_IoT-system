@@ -10,7 +10,7 @@
                 <form method="post" action="{{ route('admin.parameters.create') }}">
                     @csrf
                     <label for="type">Type:</label>
-                    <select name="type" id="type">
+                    <select class="form-select" name="type" id="type">
                         @forelse($info['types'] as $type)
                             <option value="{{$type->id}}">{{$type->name}}</option>
                         @empty

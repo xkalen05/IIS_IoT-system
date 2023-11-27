@@ -19,13 +19,16 @@
                         <h4>{{$rec_key}}:</h4>
                         @foreach($record as $key => $val)
                             <div class="mb-3">
-                                <label for="{{$key}}" class="form-label">{{$key}}</label>
-                                <input type="text" value="{{$val}}" name="{{$key}}" placeholder="{{$key}}"
+                                <label for="{{$key}}" class="form-label">{{$key}}*</label>
+                                <input type="number" value="{{$val}}" name="{{$key}}" placeholder="{{$key}} - number"
                                        class="form-control" id="description">
                             </div>
                         @endforeach
                     @empty
                     @endforelse
+                    <div class="mb-3">
+                        <a>*required field</a>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

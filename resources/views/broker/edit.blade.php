@@ -7,20 +7,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @if(Auth::user()['role'] === 'admin')
-                    <form method="post" action="{{ route('admin.broker.edit') }}">
-                @else
-                    <form method="post" action="{{ route('broker.edit') }}">
-                @endif
-                        @csrf
-                        @foreach(json_decode($param->value, true) as $value_key => $value)
-                            <div class="mb-3">
-                                <label for="{{$value_key}}" class="form-label">{{$value_key}}</label>
-                                <input type="text" value="{{$value}}" name="{{$value_key}}" placeholder="name" class="form-control" id="name">
-                            </div>
-                        @endforeach
+                <form method="post" action="{{ Auth::user()['role'] === 'admin' ? route('admin.broker.edit') : route('broker.edit')}}">
+                    @csrf
+                @foreach(json_decode($param->value, true) as $value_key => $value)
+                    <div class="mb-3">
+                        <label for="{{$value_key}}" class="form-label">{{$value_key}}*</label>
+                        <input type="text" value="{{$value}}" name="{{$value_key}}" placeholder="{{$value_key }} - number" class="form-control" id="name">
+                    </div>
+                @endforeach
                     <div class="mb-3">
                         <input type="hidden" name="param_id" value="{{ $param->id }}">
+                    </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

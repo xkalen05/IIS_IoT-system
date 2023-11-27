@@ -12,37 +12,45 @@
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Name*</label>
                         <input type="text" value="{{$user->name}}" name="name" placeholder="name" class="form-control"
                                id="name">
                     </div>
                     <div class="mb-3">
-                        <label for="surname" class="form-label">Surname</label>
+                        <label for="surname" class="form-label">Surname*</label>
                         <input type="text" value="{{$user->surname}}" name="surname" placeholder="surname"
                                class="form-control" id="surname">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
+                        <label for="email" class="form-label">Email address*</label>
                         <input type="email" name="email" value="{{$user->email}}" class="form-control" id="email">
                     </div>
                     <div class="mb-3">
+                        <label for="role">Select role*</label>
                         <select class="form-select" aria-label="Default select example" name="role">
                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                             <option value="basic_user" {{ $user->role === 'basic_user' ? 'selected' : '' }}>Basic user
                             </option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
+                    </div>
 
 
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
+                <h1 class="modal-title fs-5 mt-2">Edit password</h1>
                 <form method="post" action="{{ route('admin.user.password.edit') }}">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Password*</label>
                         <input type="password" placeholder="password" class="form-control" id="password"
                                name="password">
+                    </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
