@@ -36,7 +36,8 @@ class DatabaseSeeder extends Seeder
             ExampleSystems::class,
             ExampleDevices::class,
             ExampleParameters::class,
-            ExampleSystemUsers::class
+            ExampleSystemUsers::class,
+            TypeRefrigerator::class,
         ]);
     }
 }

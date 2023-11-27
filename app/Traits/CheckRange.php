@@ -22,6 +22,9 @@ trait CheckRange
 
         foreach ($variables as $var_key => $var){
             foreach ($type_value as $type_elem_key => $type_elem){
+                if($var_key !== $type_elem_key){
+                    continue;
+                }
                 $type_elem_num = count($type_elem);
                 $from = 0;
                 $to = 0;
@@ -39,6 +42,7 @@ trait CheckRange
                         $to = $type_val[1];
                     }
                 }
+                error_log("$from < $var < $to");
                 if($var < $from){
                     $variables["$var_key"] = $from;
                     $error_message = $error_message . "$var_key is out of range, set to lowest value in range(range: <$from,$to>)\n";

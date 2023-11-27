@@ -7,11 +7,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="kpi_id">KPI</label>
                     @forelse($info['parameters'] as $parameter)
                         @if($parameter->id === $param->id)
                             @foreach(json_decode($param->value,true) as $value_key => $value)
-                                <a>{{$value_key}} : {{$value}}</a>
+                                <a>{{$value_key}} : {{$value}}</a><br>
                             @endforeach
                         @endif
                     @empty
