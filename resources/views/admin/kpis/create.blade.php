@@ -10,17 +10,21 @@
                 <form method="post" action="{{ route('admin.kpis.create') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Name*</label>
                         <input type="text" name="name" value="{{old('name')}}" placeholder="name string value" class="form-control" id="name">
                     </div>
-                    <label for="type">Type:</label><br>
-                    <select name="type" id="type">
-                        @forelse($types as $type)
-                            <option value="{{$type->id}}">{{$type->name}}</option>
-                        @empty
-                            <option name="none">-- none --</option>
-                        @endforelse
-                    </select><br>
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Type*:</label>
+                        <select class="form-select" name="type" id="type">
+                            @forelse($types as $type)
+                                <option value="{{$type->id}}">{{$type->name}}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
