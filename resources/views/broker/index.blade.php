@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Add values</h2>
+        <h2>Edit values</h2>
         <div class="row py-2">
             @if(count($parameters) > 0)
                 <table class="table table-light">

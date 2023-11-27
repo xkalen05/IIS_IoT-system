@@ -5,9 +5,9 @@
     @include('admin.sharing_requests.sharing-requests')
 
     <div class="container px-2">
+        <h2 class="text">Systems Overview</h2>
         <div class="row justify-content-center bg-white">
             <div class="col-md-11">
-                <h2 class="text">Systems Overview</h2>
                 <div class="row py-4">
                     <div class="col"></div>
                     <div class="col"></div>

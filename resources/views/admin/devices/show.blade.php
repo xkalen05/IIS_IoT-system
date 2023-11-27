@@ -3,7 +3,7 @@
 @section('content')
     @include('admin.parameters.create')
     @foreach($info['device'] as $d)
-        <h1>Device: {{ $d->name }}</h1>
+        <h2>Device: {{ $d->name }}</h2>
     @endforeach
 
     <!--<h2>{$device}}</h2>-->

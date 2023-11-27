@@ -3,7 +3,7 @@
 @section('content')
     @include('basic_user.parameters.create')
     @foreach($info['device'] as $device)
-        <h1>{{$device->name}}</h1>
+        <h2>Device: {{$device->name}}</h2>
     @endforeach
     <div class="container px-2">
         <div class="row justify-content-center bg-white">
