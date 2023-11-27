@@ -23,9 +23,9 @@
                     </div>
                     <div class="mb-3">
                         <select class="form-select" aria-label="Default select example" name="role">
-                            <option selected>Select user role</option>
                             <option value="admin">Admin</option>
-                            <option value="basic_user">Basic user</option>
+                            <option value="basic_user" selected>Basic user</option>
+                            <option value="broker">Broker</option>
                         </select>
                     </div>
                     <div class="mb-3">
