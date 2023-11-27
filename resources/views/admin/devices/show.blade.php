@@ -35,6 +35,7 @@
                         <tbody>
                         @forelse($info['parameters'] as $param)
                             @include('admin.parameters.edit', ['param' => $param])
+                            @include('admin.parameters.show', ['param' => $param])
                             <tr>
                                 <td>{{ $param->id }}</td>
                                 <td>{{ $param->name }}</td>
@@ -47,6 +48,14 @@
                                         data-bs-target="#edit_parameter_{{$param->id}}_modal"
                                     >
                                         Edit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#show_parameter_{{$param->id}}_modal"
+                                    >
+                                        Show values
                                     </button>
                                     <a href="{{route('admin.parameters.delete', $param->id)}}"
                                        class="btn btn-danger">Delete</a>
