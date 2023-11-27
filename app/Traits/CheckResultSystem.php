@@ -25,6 +25,10 @@ trait CheckResultSystem
             }
         }
 
+        if($devices->isEmpty()){
+            $result = 0;
+        }
+
         DB::table('systems')
             ->where('id','=',"$system_id")
             ->update([
