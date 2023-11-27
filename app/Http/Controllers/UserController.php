@@ -35,7 +35,10 @@ class UserController extends Controller
             return true;
         }
 
-        if($uid->first()->id === $id){
+        $uid = $uid[0]->id;
+        error_log("$uid === $id");
+        if($uid == $id){
+            error_log("return true");
             return true;
         }
         return false;
