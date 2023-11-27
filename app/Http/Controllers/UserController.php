@@ -132,8 +132,11 @@ class UserController extends Controller
     public function editPasswordByAdmin(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8|max:255',
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'new_password' => 'required|min:8|max:255',
+            'new_password_confirmation' => 'required|min:8|max:255|same:new_password',
+        ], [
+        'new_password_confirmation.same' => 'The entered passwords are not the same',
         ]);
 
         if($validator->fails()){
@@ -143,7 +146,7 @@ class UserController extends Controller
         DB::table('users')
             ->where('id', '=', $request->input('user_id'))
             ->update([
-                'password' => Hash::make($request->input('password'))
+                'password' => Hash::make($request->input('new_password'))
             ]);
 
         return redirect(route('admin.users'))->with('success', 'Password for user ' . $request->input('name') . ' ' .
@@ -152,7 +155,6 @@ class UserController extends Controller
 
     public function editPasswordByUser(Request $request)
     {
-        // TODO zmena hesla pro aktualne prihlaseneho uzivatele nefunguje
         $validator = Validator::make($request->all(), [
             'new_password' => 'required|min:8|max:255',
             'new_password_confirmation' => 'required|min:8|max:255|same:new_password',
