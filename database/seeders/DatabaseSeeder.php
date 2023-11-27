@@ -32,6 +32,11 @@ class DatabaseSeeder extends Seeder
             UserAdmin::class,
             UserUser::class,
             UserBroker::class,
+            ExampleKPIs::class,
+            ExampleSystems::class,
+            ExampleDevices::class,
+            ExampleParameters::class,
+            ExampleSystemUsers::class
         ]);
     }
 }
