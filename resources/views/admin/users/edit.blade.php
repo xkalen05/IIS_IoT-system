@@ -40,21 +40,21 @@
 
 
                     <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-                <h1 class="modal-title fs-5 mt-2">Edit password</h1>
-                <form method="post" action="{{ route('admin.user.password.edit') }}">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password*</label>
-                        <input type="password" placeholder="password" class="form-control" id="password"
-                               name="password">
-                    </div>
-                    <div class="mb-3">
-                        <a>*required field</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+{{--                </form>--}}
+{{--                <h1 class="modal-title fs-5 mt-2">Edit password</h1>--}}
+{{--                <form method="post" action="{{ route('admin.user.password.edit') }}">--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" name="user_id" value="{{ $user->id }}">--}}
+{{--                    <div class="mb-3">--}}
+{{--                        <label for="password" class="form-label">Password*</label>--}}
+{{--                        <input type="password" placeholder="password" class="form-control" id="password"--}}
+{{--                               name="password">--}}
+{{--                    </div>--}}
+{{--                    <div class="mb-3">--}}
+{{--                        <a>*required field</a>--}}
+{{--                    </div>--}}
+{{--                    <button type="submit" class="btn btn-primary">Save</button>--}}
+{{--                </form>--}}
             </div>
         </div>
     </div>

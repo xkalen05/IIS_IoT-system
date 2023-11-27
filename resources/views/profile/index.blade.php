@@ -1,6 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
+    @include('profile.change-password', ['$user' => $user])
     @include('profile.edit', ['user' => $user])
     <div class="container">
         <h2>User Profile</h2>
@@ -25,6 +26,10 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#edit_user_{{$user->id}}_modal"
         > Edit
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#edit_user-password_{{$user->id}}_modal"
+        > Change password
         </button>
     </div>
 @endsection

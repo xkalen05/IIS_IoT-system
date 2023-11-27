@@ -37,6 +37,7 @@
                             <tbody>
                             @foreach($users as $user)
                                 @include('admin.users.edit', ['user' => $user])
+                                @include('admin.users.change-password', ['$user' => $user])
                                 <tr>
     {{--                                <td>{{ $user->id }}</td>--}}
                                     <td>{{ $user->name }}</td>
@@ -51,6 +52,14 @@
                                             data-bs-target="#edit_user_{{$user->id}}_modal"
                                         >
                                             Edit
+                                        </button>
+                                            <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#edit_user-password_{{$user->id}}_by_admin_modal"
+                                        >
+                                            Change password
                                         </button>
                                         <a href="{{route('admin.user.delete', $user->id)}}"
                                            class="btn btn-danger">Delete</a>
