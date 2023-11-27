@@ -31,6 +31,7 @@
                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                             <option value="basic_user" {{ $user->role === 'basic_user' ? 'selected' : '' }}>Basic user
                             </option>
+                            <option value="broker" {{ $user->role === 'broker' ? 'selected' : '' }}>Broker</option>
                         </select>
                     </div>
                     <div class="mb-3">
