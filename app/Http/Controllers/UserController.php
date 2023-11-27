@@ -154,14 +154,17 @@ class UserController extends Controller
     {
         // TODO zmena hesla pro aktualne prihlaseneho uzivatele nefunguje
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8|max:255',
+            'new_password' => 'required|min:8|max:255',
+            'new_password_confirmation' => 'required|min:8|max:255|same:new_password',
+        ], [
+        'new_password_confirmation.same' => 'The entered passwords are not the same',
         ]);
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator);
         }
 
-        $newPassword = $request->input('password');
+        $newPassword = $request->input('new_password');
 
         Auth::user()->update([
             'password' => Hash::make($newPassword)
