@@ -17,7 +17,7 @@
                         <div class="checkbox-dropdown">
                             <select multiple class="form-select" id="user_id" name="user_id">
                                 @foreach($users as $user)
-                                    @if(!$user->systems->contains($system->id) && $user->role !== 'admin')
+                                    @if(!$user->systems->contains($system->id) && $user->role !== 'admin' && $user->role !== 'broker')
                                         <option value="{{ $user->id }}">
                                             {{ $user->name }} {{ $user->surname }} - {{ $user->email }}
                                         </option>
