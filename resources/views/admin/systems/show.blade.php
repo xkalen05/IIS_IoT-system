@@ -37,6 +37,7 @@
                             <th scope="col">Description</th>
                             <th scope="col">Alias</th>
                             <th scope="col">Actions</th>
+                            <th scope="col">State</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,9 +52,16 @@
                                             data-bs-toggle="modal" data-bs-target="#edit_device_{{$device->id}}_modal">
                                         Edit
                                     </button>
+                                    <a href="{{route('admin.device.show', ['encrypted_id' => encrypt($device->id)]) }}"
+                                       class="btn btn-warning">Parameters</a>
                                     <a href="{{route('admin.device.free', $device->id)}}"
                                        class="btn btn-danger">Free</a>
                                 </td>
+                                @if($device->result === 0)
+                                    <td class="bg-danger text-center">ERROR</td>
+                                @else
+                                    <td class="bg-success text-center">OK</td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
