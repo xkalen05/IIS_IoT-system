@@ -114,9 +114,6 @@
                     </table>
                 @endif
             </div>
-            <footer class="pt-3 mt-4 text-muted border-top">
-                © 2023
-            </footer>
         </div>
     </main>
 </div>
