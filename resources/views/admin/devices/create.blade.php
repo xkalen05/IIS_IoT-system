@@ -10,7 +10,7 @@
                 <form method="post" action="{{ route('admin.device.create') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Name*</label>
                         <input type="text" value="{{old('name')}}" name="name" placeholder="name" class="form-control" id="name">
                     </div>
                     <div class="mb-3">
@@ -20,6 +20,9 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" value="{{old('description')}}" placeholder="description" class="form-control" id="description" name="description">
+                    </div>
+                    <div class="mb-3">
+                        <a>*required field</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
