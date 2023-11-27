@@ -24,7 +24,7 @@ class DeviceController extends Controller
         $devices = DB::table('devices')
             ->join('users','devices.user_id','=','users.id')
             ->select('devices.*', 'users.email as user_email')
-            ->paginate(10);
+            ->paginate(1000);
 
         return view('admin.devices.index')->with(['devices' => $devices]);
 
