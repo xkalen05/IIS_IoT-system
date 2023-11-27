@@ -136,10 +136,20 @@ class DeviceController extends Controller
      */
     public function destroy(string $id)
     {
+
         try{
+            $system_id = DB::table('devices')
+                ->where('id','=',"$id")
+                ->select('system_id')
+                ->get();
+            error_log("heer");
             DB::table('devices')
                 ->where('id','=',$id)
                 ->delete();
+
+            if(!$system_id->isEmpty()){
+                $this->CheckResultSystemFunc($system_id[0]->system_id);
+            }
         }catch (Exception $e){
             return redirect()->back()->with('error','Device could not be deleted, already does not exist or invalid ID.');
         }
@@ -181,7 +191,18 @@ class DeviceController extends Controller
 
     public function free(string $id)
     {
-        DB::table('devices')->where('id','=', $id)->update(['system_id'=> null]);
+        $system_id = DB::table('devices')
+            ->where('id','=',"$id")
+            ->select('system_id')
+            ->get();
+
+        DB::table('devices')
+            ->where('id','=', $id)
+            ->update(['system_id'=> null]);
+
+        if(!$system_id->isEmpty()){
+            $this->CheckResultSystemFunc($system_id[0]->system_id);
+        }
 
         return redirect()->back()->with("success", "Device was successfully removed from the system!");
     }
